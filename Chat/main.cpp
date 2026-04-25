@@ -26,11 +26,10 @@ int main()
 			cout << "/help - view commands" << endl;
 			cout << "/exit - quit on desktop" << endl;
 			cout << "/reg - create account" << endl;
-			cout << "/signin - sign in account" << endl;
-			cout << "/quitacc - left the account" << endl;
+			cout << "/login - sign in account" << endl;
+			cout << "/logout - left the account" << endl;
 			cout << "/del - delete account" << endl;
-			cout << "/chat - sign in shared chat" << endl;
-			cout << "/chat <UserName> - sig in chat with <UserName>" << endl;
+			cout << "/chat - sign in chat" << endl;
 
 			cout << endl;
 		}
@@ -47,37 +46,46 @@ int main()
 			cin >> temp[0];
 			cout << "Enter login: ";
 			cin >> temp[1];
-			cout << "Enter passowrd: ";
+			cout << "Enter password: ";
 			cin >> temp[2];
-			UserM->AddUser(temp[0], temp[1], temp[2]);
+			try
+			{
+				UserM->AddUser(temp[0], temp[1], temp[2]);
+			}
+			catch (const char* exeption)
+			{
+				cout << exeption << endl;
+			}
 			cout << endl;
 			delete[] temp;
 		}
-		else if (*com == "/signin")
+		else if (*com == "/login")
 		{
 			string* temp = new string[2];
-			cout << "Enter login: ";
+			cout << "Enter email: ";
 			cin >> temp[0];
 			cout << "Enter password: ";
 			cin >> temp[1];
-			*signIn = UserM->SignIn(temp[0], temp[1]);
+			*signIn = UserM->Login(temp[0], temp[1]);
 			*name = UserM->GetNameByID(UserM->GetID(temp[0]));
 			cout << endl;
 			delete[] temp;
 		}
-		else if (*com == "/quitacc")
+		else if (*com == "/logout")
 		{
 			cout << "You left the account" << endl << endl;
 			*signIn = false;
 		}
 		else if (*com == "/del")
 		{
-			string* temp = new string[2];
+			string* temp = new string[3];
 			cout << "Enter name: ";
 			cin >> temp[0];
-			cout << "Enter password: ";
+			cout << "EEnter email: ";
 			cin >> temp[1];
-			UserM->DeleteUser(temp[0], temp[1]);
+			cout << "Enter password: ";
+			cin >> temp[2];
+			UserM->DeleteUser(temp[0], temp[1], temp[2]);
 			name->clear();
 			*signIn = false;
 			cout << endl;
@@ -87,7 +95,7 @@ int main()
 		{
 			if (!*signIn)
 			{
-				cout << "Sign in account" << endl;
+				cout << "First, login account" << endl;
 				break;
 			}
 			cout << "Enter which chat to open [shared/<UserName>]: ";
@@ -143,5 +151,8 @@ int main()
 	delete UserM;
 	delete ChatM;
 	delete com;
+	delete name;
 	delete signIn;
+
+	return 0;
 }

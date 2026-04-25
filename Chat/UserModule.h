@@ -11,11 +11,11 @@ private:
 public:
 	//UserModule();
 	~UserModule() = default;
-	void AddUser(string name, string login, string password);
-	void DeleteUser(string name, string password);
-	bool SignIn(string login, string password);
+	void AddUser(string name, string email, string password);
+	void DeleteUser(string name, string email, string password);
+	bool Login(string email, string password) const;
 	string GetNameByID(int id);
-	string GetLoginByID(int id);
-	int GetID(string str);
+	string GetEmailByID(int id);
+	int GetID(string str) const;
 };
 

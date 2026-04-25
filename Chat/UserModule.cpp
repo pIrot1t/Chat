@@ -1,8 +1,11 @@
 #include "UserModule.h"
 
-void UserModule::AddUser(string name, string login, string password)
+void UserModule::AddUser(string name, string email, string password)
 {
-	
+	if (password.length() < 8)
+	{
+		throw "Password less then eight characters";
+	}
 	for(int i = 0; i < sizeof(userData) / sizeof(userData[0]); ++i)
 	{
 		if (userData[i]->empty())
@@ -11,17 +14,15 @@ void UserModule::AddUser(string name, string login, string password)
 			{
 				if (userData[j][0] == name)
 				{
-					cout << "This name is already used" << endl;
-					return;
+					throw "This name is already used";
 				}
-				else if (userData[j][1] == login)
+				else if (userData[j][1] == email)
 				{
-					cout << "This email is already used" << endl;
-					return;
+					throw "This email is already used";
 				}
 			}
 			userData[i][0] = name;
-			userData[i][1] = login;
+			userData[i][1] = email;
 			userData[i][2] = password;
 			cout << "Registration succes" << endl;
 			return;
@@ -34,12 +35,12 @@ void UserModule::AddUser(string name, string login, string password)
 	}
 }
 
-void UserModule::DeleteUser(string name, string password)
+void UserModule::DeleteUser(string name, string email, string password)
 {
 	
 	for(int i = 0; i < sizeof(userData) / sizeof(userData[0]); ++i)
 	{
-		if (userData[i][0] == name && userData[i][2] == password)
+		if (userData[i][0] == name && userData[i][1] == email && userData[i][2] == password)
 		{
 			userData[i][0].clear();
 			userData[i][1].clear();
@@ -49,22 +50,22 @@ void UserModule::DeleteUser(string name, string password)
 		}
 		else if (i == sizeof(userData) / sizeof(userData[0]) - 1)
 		{
-			cout << "Wrong name or password" << endl;
+			cout << "Wrong name, email or password" << endl;
 		}
 	}
 }
 
-bool UserModule::SignIn(string login, string password)
+bool UserModule::Login(string email, string password) const
 {
 	for (int i = 0; i < sizeof(userData) / sizeof(userData[0]); ++i)
 	{
-		if (userData[i][1] == login && userData[i][2] == password)
+		if (userData[i][1] == email && userData[i][2] == password)
 		{
-			cout << "You sign in account" << endl;
+			cout << "You login account" << endl;
 			return true;
 		}
 	}
-	cout << "Wrong login or password" << endl;
+	cout << "Wrong email or password" << endl;
 	return false;
 }
 
@@ -73,12 +74,12 @@ string UserModule::GetNameByID(int id)
 	return userData[id][0];
 }
 
-string UserModule::GetLoginByID(int id)
+string UserModule::GetEmailByID(int id)
 {
 	return userData[id][1];
 }
 
-int UserModule::GetID(string str)
+int UserModule::GetID(string str) const
 {
 	for (int i = 0; i < sizeof(userData) / sizeof(userData[0]); ++i)
 	{
