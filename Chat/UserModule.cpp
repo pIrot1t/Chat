@@ -24,7 +24,7 @@ void UserModule::AddUser(string name, string email, string password)
 			userData[i][0] = name;
 			userData[i][1] = email;
 			userData[i][2] = password;
-			cout << "Registration succes" << endl;
+			cout << "Registration success" << endl;
 			return;
 		}
 		else if (i == sizeof(userData) / sizeof(userData[0]) - 1)
@@ -59,7 +59,7 @@ bool UserModule::Login(string email, string password) const
 	{
 		if (userData[i][1] == email && userData[i][2] == password)
 		{
-			cout << "You login account" << endl;
+			cout << "You sign in account" << endl;
 			return true;
 		}
 	}

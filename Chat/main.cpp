@@ -44,7 +44,7 @@ int main()
 			string* temp = new string[3];
 			cout << "Enter name: ";
 			cin >> temp[0];
-			cout << "Enter login: ";
+			cout << "Enter email: ";
 			cin >> temp[1];
 			cout << "Enter password: ";
 			cin >> temp[2];
@@ -81,7 +81,7 @@ int main()
 			string* temp = new string[3];
 			cout << "Enter name: ";
 			cin >> temp[0];
-			cout << "EEnter email: ";
+			cout << "Enter email: ";
 			cin >> temp[1];
 			cout << "Enter password: ";
 			cin >> temp[2];
@@ -95,40 +95,21 @@ int main()
 		{
 			if (!*signIn)
 			{
-				cout << "First, login account" << endl;
-				break;
-			}
-			cout << "Enter which chat to open [shared/<UserName>]: ";
-			cin >> *com;
-			string* message = new string;
-			if (*com == "shared")
-			{
-				while (true)
-				{
-					system("cls");
-					cout << "Welcome to shared chat!" << endl << endl;
-					cout << "Enter /q - left the chat" << endl << endl;
-					ChatM->ViewMessages(*name, "shared");
-					cout << *name << ": ";
-					cin >> *message;
-					if (*message == "/q")
-					{
-						system("cls");
-						break;
-					}
-					ChatM->SendMessage(*name, "shared", *message);
-				}
+				cout << "First, login account" << endl << endl;
 			}
 			else
 			{
-				if (UserM->GetID(*com) != NULL)
+				cout << "Enter which chat to open [shared/<UserName>]: ";
+				cin >> *com;
+				string* message = new string;
+				if (*com == "shared")
 				{
 					while (true)
 					{
 						system("cls");
-						cout << "Welcome to " << *com << " chat!" << endl << endl;
+						cout << "Welcome to shared chat!" << endl << endl;
 						cout << "Enter /q - left the chat" << endl << endl;
-						ChatM->ViewMessages(*name, *com);
+						ChatM->ViewMessages(*name, "shared");
 						cout << *name << ": ";
 						cin >> *message;
 						if (*message == "/q")
@@ -136,11 +117,36 @@ int main()
 							system("cls");
 							break;
 						}
-						ChatM->SendMessage(*name, *com, *message);
+						ChatM->SendMessage(*name, "shared", *message);
 					}
 				}
+				else
+				{
+					if (UserM->GetID(*com) != NULL)
+					{
+						while (true)
+						{
+							system("cls");
+							cout << "Welcome to " << *com << " chat!" << endl << endl;
+							cout << "Enter /q - left the chat" << endl << endl;
+							ChatM->ViewMessages(*name, *com);
+							cout << *name << ": ";
+							cin >> *message;
+							if (*message == "/q")
+							{
+								system("cls");
+								break;
+							}
+							ChatM->SendMessage(*name, *com, *message);
+						}
+					}
+					else
+					{
+						cout << "User not found" << endl << endl;
+					}
+				}
+				delete message;
 			}
-			delete message;
 		}
 		else
 		{
