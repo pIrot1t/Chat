@@ -67,7 +67,7 @@ int main()
 		}
 		else if (*com == "/quitacc")
 		{
-			cout << "You left the account" << endl;
+			cout << "You left the account" << endl << endl;
 			*signIn = false;
 		}
 		else if (*com == "/del")
