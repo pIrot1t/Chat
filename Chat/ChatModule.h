@@ -7,7 +7,7 @@ using namespace std;
 class ChatModule
 {
 private:
-	string messages[255][3];
+	string messages[255][3]; // 1 - sender, 2 - recipient, 3 - message
 public:
 	ChatModule() = default;
 	~ChatModule() = default;

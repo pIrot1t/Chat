@@ -7,7 +7,7 @@ using namespace std;
 class UserModule
 {
 private:
-	string userData[8][3];
+	string userData[8][3]; // 1 - name, 2 - email, 3 - password
 public:
 	UserModule() = default;
 	~UserModule() = default;
