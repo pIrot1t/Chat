@@ -14,10 +14,11 @@ void ChatModule::SendMessage(string sender, string recipient, string message)
 	}
 }
 
-void ChatModule::ViewMessages(string sender, string recipient)
+void ChatModule::ViewMessages(string sender, string recipient) const
 {
 	for (int i = 0; i < sizeof(messages) / sizeof(messages[0]); ++i)
 	{
+		// проверки для корректного отображения сообщений
 		if ((messages[i][0] == sender || messages[i][0] == recipient) && (messages[i][1] == sender || messages[i][1] == recipient))
 		{
 			cout << messages[i][0] << ": " << messages[i][2] << endl;

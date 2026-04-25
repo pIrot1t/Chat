@@ -2,7 +2,7 @@
 
 void UserModule::AddUser(string name, string email, string password)
 {
-	if (password.length() < 8)
+	if (password.length() < 8) // ограничение на минимальное кол-во символов пароля
 	{
 		throw "Password less then eight characters";
 	}
@@ -12,11 +12,11 @@ void UserModule::AddUser(string name, string email, string password)
 		{
 			for (int j = 0; j < sizeof(userData) / sizeof(userData[0]); ++j)
 			{
-				if (userData[j][0] == name)
+				if (userData[j][0] == name) // исключение для неповторяемости имен
 				{
-					throw "This name is already used";
+					throw "This name is already used"; 
 				}
-				else if (userData[j][1] == email)
+				else if (userData[j][1] == email) // исключение для неповторяемости логинов
 				{
 					throw "This email is already used";
 				}
@@ -29,15 +29,13 @@ void UserModule::AddUser(string name, string email, string password)
 		}
 		else if (i == sizeof(userData) / sizeof(userData[0]) - 1)
 		{
-			cout << "Count of users is max" << endl;
-			return;
+			throw "Count of users is max"; // исключение на достижение максимального кол-ва пользователей
 		}
 	}
 }
 
 void UserModule::DeleteUser(string name, string email, string password)
 {
-	
 	for(int i = 0; i < sizeof(userData) / sizeof(userData[0]); ++i)
 	{
 		if (userData[i][0] == name && userData[i][1] == email && userData[i][2] == password)
@@ -88,6 +86,5 @@ int UserModule::GetID(string str) const
 			return i;
 		}
 	}
-	cout << "User not found" << endl;
 	return NULL;
 }

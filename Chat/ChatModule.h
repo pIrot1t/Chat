@@ -11,6 +11,6 @@ private:
 public:
 	ChatModule() = default;
 	~ChatModule() = default;
-	void SendMessage(string sender, string recipient, string message);
-	void ViewMessages(string sender, string recipient);
+	void SendMessage(string sender, string recipient, string message); // отпраляет сообщения
+	void ViewMessages(string sender, string recipient) const; // выводит сообщения
 };
