@@ -123,10 +123,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ChatModule.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="UserModule.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ChatModule.h" />
     <ClInclude Include="UserModule.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

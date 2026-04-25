@@ -21,9 +21,15 @@
     <ClCompile Include="UserModule.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="ChatModule.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UserModule.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="ChatModule.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

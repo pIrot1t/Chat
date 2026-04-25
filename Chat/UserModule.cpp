@@ -3,17 +3,17 @@
 void UserModule::AddUser(string name, string login, string password)
 {
 	
-	for(int i = 0; i < sizeof(names) / sizeof(names[0]); ++i)
+	for(int i = 0; i < sizeof(userData) / sizeof(userData[0]); ++i)
 	{
-		if (names[i].empty() && logins[i].empty() && passwords[i].empty())
+		if (userData[i]->empty())
 		{
-			names[i] = name;
-			logins[i] = login;
-			passwords[i] = password;
+			userData[i][0] = name;
+			userData[i][1] = login;
+			userData[i][2] = password;
 			cout << "Registration succes" << endl;
 			return;
 		}
-		else if (i == sizeof(names) / sizeof(names[0])-1)
+		else if (i == sizeof(userData) / sizeof(userData[0]) - 1)
 		{
 			cout << "Count of users is max" << endl;
 			return;
@@ -24,17 +24,17 @@ void UserModule::AddUser(string name, string login, string password)
 void UserModule::DeleteUser(string name, string password)
 {
 	
-	for(int i = 0; i < sizeof(names) / sizeof(names[0]); ++i)
+	for(int i = 0; i < sizeof(userData) / sizeof(userData[0]); ++i)
 	{
-		if (names[i] == name && passwords[i] == password)
+		if (userData[i][0] == name && userData[i][2] == password)
 		{
-			names[i].clear();
-			logins[i].clear();
-			passwords[i].clear();
+			userData[i][0].clear();
+			userData[i][1].clear();
+			userData[i][2].clear();
 			cout << "Account deleted" << endl;
 			return;
 		}
-		else if (i == sizeof(names) / sizeof(names[0]) - 1)
+		else if (i == sizeof(userData) / sizeof(userData[0]) - 1)
 		{
 			cout << "Wrong name or password" << endl;
 		}
@@ -43,34 +43,33 @@ void UserModule::DeleteUser(string name, string password)
 
 bool UserModule::SignIn(string login, string password)
 {
-	for (int i = 0; i < sizeof(names) / sizeof(names[0]); ++i)
+	for (int i = 0; i < sizeof(userData) / sizeof(userData[0]); ++i)
 	{
-		if (logins[i] == login && passwords[i] == password)
+		if (userData[i][1] == login && userData[i][2] == password)
 		{
 			cout << "You sign in account" << endl;
 			return true;
 		}
-		else
-		{
-			cout << "Wrong login or password" << endl;
-			return false;
-		}
+	}
+	cout << "Wrong login or password" << endl;
+	return false;
+}
 	}
 }
 
 string UserModule::GetNameByID(int id)
 {
-	return names[id];
+	return userData[id][0];
 }
 string UserModule::GetLoginByID(int id)
 {
-	return logins[id];
+	return userData[id][1];
 }
 int UserModule::GetID(string str)
 {
-	for (int i = 0; i < sizeof(names) / sizeof(names[0]); ++i)
+	for (int i = 0; i < sizeof(userData) / sizeof(userData[0]); ++i)
 	{
-		if (names[i] == str || logins[i] == str)
+		if (userData[i][0] == str || userData[i][1] == str)
 		{
 			return i;
 		}
@@ -79,4 +78,5 @@ int UserModule::GetID(string str)
 			return NULL;
 		}
 	}
+	return NULL;
 }

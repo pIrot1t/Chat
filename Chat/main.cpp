@@ -1,11 +1,13 @@
 ﻿#include <iostream>
 #include "UserModule.h"
+#include "ChatModule.h"
 
 using namespace std;
 
 int main()
 {
 	UserModule* UserM = new UserModule;
+	ChatModule* ChatM = new ChatModule;
 	string* com = new string;
 	string* name = new string;
 	bool* signIn = new bool(false);
@@ -27,6 +29,8 @@ int main()
 			cout << "/signin - sign in account" << endl;
 			cout << "/quitacc - left the account" << endl;
 			cout << "/del - delete account" << endl;
+			cout << "/chat - sign in shared chat" << endl;
+			cout << "/chat <UserName> - sig in chat with <UserName>" << endl;
 
 			cout << endl;
 		}
@@ -63,7 +67,7 @@ int main()
 		}
 		else if (*com == "/quitacc")
 		{
-			cout << "You lef the account" << endl;
+			cout << "You left the account" << endl;
 			*signIn = false;
 		}
 		else if (*com == "/del")
@@ -79,6 +83,57 @@ int main()
 			cout << endl;
 			delete[] temp;
 		}
+		else if (*com == "/chat")
+		{
+			if (!*signIn)
+			{
+				cout << "Sign in account" << endl;
+				break;
+			}
+			cout << "Enter which chat to open [shared/<UserName>]: ";
+			cin >> *com;
+			string* message = new string;
+			if (*com == "shared")
+			{
+				while (true)
+				{
+					system("cls");
+					cout << "Welcome to shared chat!" << endl << endl;
+					cout << "Enter /q - left the chat" << endl << endl;
+					ChatM->ViewMessages(*name, "shared");
+					cout << *name << ": ";
+					cin >> *message;
+					if (*message == "/q")
+					{
+						system("cls");
+						break;
+					}
+					ChatM->SendMessage(*name, "shared", *message);
+				}
+			}
+			else
+			{
+				if (UserM->GetID(*com) != NULL)
+				{
+					while (true)
+					{
+						system("cls");
+						cout << "Welcome to " << *com << " chat!" << endl << endl;
+						cout << "Enter /q - left the chat" << endl << endl;
+						ChatM->ViewMessages(*name, *com);
+						cout << *name << ": ";
+						cin >> *message;
+						if (*message == "/q")
+						{
+							system("cls");
+							break;
+						}
+						ChatM->SendMessage(*name, *com, *message);
+					}
+				}
+			}
+			delete message;
+		}
 		else
 		{
 			cout << "Wrong command" << endl << endl;
@@ -86,6 +141,7 @@ int main()
 	}
 
 	delete UserM;
+	delete ChatM;
 	delete com;
 	delete signIn;
 }
