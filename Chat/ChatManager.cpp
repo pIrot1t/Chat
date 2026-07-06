@@ -3,53 +3,60 @@
 
 void ChatManager::ListChats(string name)
 {
-	for (map<int, Chat>::iterator it = chats.begin(); it != chats.end(); ++it)
+	for (vector<Chat>::iterator it = chats.begin(); it != chats.end(); ++it)
 	{
-		vector<string> senders = it->second.getSenders();
+		vector<string> senders = it->getSenders();
 		for (string& sender : senders)
 		{
 			if (sender == name)
 			{
-				cout << it->first << " : " << it->second.getName() << endl;
+				cout << it->getID() << " : " << it->getName() << endl;
 			}
 		}
 	}
 }
 
-void ChatManager::CreateChat(string u_name)
+void ChatManager::CreateChat(string u_name, string c_name)
 {
-	system("cls");
-	cout << endl << "						   <<GigaWord>>" << endl;
-	cout << " ======================================================================================================================" << endl << endl;
-	ListChats(u_name);
-	cout << "					enter chat name" << endl;
-	cout << " ======================================================================================================================" << endl << endl;
-	cout << "						Enter: ";
-	string* c_name = new string;
-	getline(cin, *c_name);
-	chats.insert({ i++, Chat(*c_name) });
-	chats[--i].addSender(u_name);
-	delete c_name;
+	Chat chat(i++, c_name);
+	chat.addSender(u_name);
+	chats.push_back(chat);
 }
 
 void ChatManager::DeleteChat(int id)
 {
-	map<int, Chat>::iterator it = chats.find(id);
-	chats.erase(it);
+	for (vector<Chat>::iterator it = chats.begin(); it != chats.end();)
+	{
+		if (it->getID() == id)
+		{
+			it = chats.erase(it);
+		}
+		else
+		{
+			it++;
+		}
+	}
 }
 
-Chat ChatManager::getChat(int id)
+Chat* ChatManager::getChat(int id)
 {
-	return chats.at(id);
+	for (Chat& chat : chats)
+	{
+		if (chat.getID() == id)
+		{
+			return &chat;
+		}
+	}
+	return nullptr;
 }
 
 void ChatManager::Control(string u_name)
 {
-	int* com = new int;
-	Chat* chat = new Chat;
+	int com;
+	Chat* chat = nullptr;
+	string c_name;
 	while (true)
 	{
-		string* mes = new string;
 		system("cls");
 		cout << endl << "						   <<GigaWord>>" << endl;
 		cout << " ======================================================================================================================" << endl << endl;
@@ -57,13 +64,10 @@ void ChatManager::Control(string u_name)
 		cout << "		0 - return to main page | 1 - enter chat | 2 - create chat" << endl;
 		cout << " ======================================================================================================================" << endl << endl;
 		cout << "						Enter: ";
-		cin >> *com;
-		switch (*com)
+		cin >> com;
+		switch (com)
 		{
 		case 0:
-			delete com;
-			delete chat;
-			delete mes;
 			return;
 			break;
 		case 1:
@@ -74,12 +78,27 @@ void ChatManager::Control(string u_name)
 			cout << "					enter chat ID" << endl;
 			cout << " ======================================================================================================================" << endl << endl;
 			cout << "						Enter: ";
-			cin >> *com;
-			*chat = getChat(*com);
-			chat->UseChat(u_name);
+			cin >> com;
+			chat = getChat(com);
+			if (chat != nullptr)
+			{
+				if (chat->UseChat(u_name) == 1)
+				{
+					DeleteChat(chat->getID());
+				}
+			}
 			break;
 		case 2:
-			CreateChat(u_name);
+			system("cls");
+			cout << endl << "						   <<GigaWord>>" << endl;
+			cout << " ======================================================================================================================" << endl << endl;
+			ListChats(u_name);
+			cout << "					enter chat name" << endl;
+			cout << " ======================================================================================================================" << endl << endl;
+			cout << "						Enter: ";
+			cin.ignore();
+			getline(cin, c_name);
+			CreateChat(u_name, c_name);
 			break;
 		default:
 			break;

@@ -25,17 +25,20 @@ private:
 	vector<string> senders;
 	list<Message> messages;
 	string name;
+	int id;
 
 public:
-	Chat() : name("") {};
-	Chat(string name) : name(name) {};
-	Chat(string name, vector<string> senders) : name(name), senders(senders) {};
+	Chat() : id(-1), name("") {};
+	Chat(int id, string name) : id(id), name(name) {};
+	Chat(int id, string name, vector<string> senders) : id(id), name(name), senders(senders) {};
 
 	~Chat() 
 	{
 		senders.clear();
 		messages.clear();
 	}
+
+	int getID();
 
 	string getName();
 
@@ -49,5 +52,5 @@ public:
 	
 	void ViewMessages();
 
-	void UseChat(string user_name);
+	int UseChat(string user_name);
 };

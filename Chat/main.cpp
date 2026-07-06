@@ -29,7 +29,7 @@ int main()
 		}
 		cout << endl;
 		cout << " ======================================================================================================================" << endl << endl;
-		cout << "						Enter: ";
+		cout << "	Enter: ";
 
 		cin >> *com;
 
@@ -59,7 +59,7 @@ int main()
 			}
 			else
 			{
-				*name = (string)userM->SignIn();
+				userM->SignIn(*name);
 			}
 			break;
 		default:

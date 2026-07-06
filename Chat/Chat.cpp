@@ -1,5 +1,9 @@
 #include "Chat.h"
 
+int Chat::getID()
+{
+	return id;
+}
 
 string Chat::getName()
 {
@@ -37,14 +41,85 @@ void Chat::ViewMessages()
 	}
 }
 
-void Chat::UseChat(string user_name)
+int Chat::UseChat(string u_name)
 {
-	system("cls");
-	cout << getName() << endl << endl;
-	cout << " ======================================================================================================================" << endl << endl;
-	ViewMessages();
-	cout << endl;
-	cout << "			0 - exit | 1 - send message | 2 - list users | 3 - leave chat" << endl;
-	cout << " ======================================================================================================================" << endl << endl;
-	cout << "Enter: ";
+	int com;
+	string mess;
+	while (true)
+	{
+		system("cls");
+		cout << getName() << endl << endl;
+		cout << " ======================================================================================================================" << endl << endl;
+		ViewMessages();
+		cout << endl;
+		cout << "						0 - return back | 1 - send message | 2 - menu" << endl;
+		cout << " ======================================================================================================================" << endl << endl;
+		cout << "	Enter: ";
+		cin >> com;
+		switch (com)
+		{
+		case 0:
+			return 0;
+			break;
+		case 1:
+			system("cls");
+			cout << getName() << endl << endl;
+			cout << " ======================================================================================================================" << endl << endl;
+			ViewMessages();
+			cout << endl;
+			cout << "							--send message--" << endl;
+			cout << " ======================================================================================================================" << endl << endl;
+			cout << "	Enter: ";
+			cin.ignore();
+			getline(cin, mess);
+			Send(mess, u_name);
+			break;
+		case 2:
+			system("cls");
+			cout << getName() << endl << endl;
+			cout << " ======================================================================================================================" << endl << endl;
+			ListSenders();
+			cout << endl;
+			cout << "						0 - return back | 1 - add user | 2 - leave chat | 3 - delete chat" << endl;
+			cout << " ======================================================================================================================" << endl << endl;
+			cout << "	Enter: ";
+			cin >> com;
+			switch (com)
+			{
+			case 0:
+				break;
+			case 1:
+				system("cls");
+				cout << getName() << endl << endl;
+				cout << " ======================================================================================================================" << endl << endl;
+				ListSenders();
+				cout << endl;
+				cout << "							--add user--" << endl;
+				cout << " ======================================================================================================================" << endl << endl;
+				cout << "	Enter: ";
+				cin >> mess;
+				addSender(mess);
+				cin.ignore();
+				break;
+			case 2:
+				for (vector<string>::iterator it = senders.begin(); it != senders.end();)
+				{
+					if (*it == u_name)
+					{
+						senders.erase(it);
+					}
+					else
+					{
+						it++;
+					}
+				}
+				return 0;
+				break;
+			case 3:
+				return 1;
+				break;
+			}
+			break;
+		}
+	}
 }

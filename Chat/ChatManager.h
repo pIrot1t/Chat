@@ -9,7 +9,7 @@ using namespace std;
 class ChatManager
 {
 private:
-	map<int,Chat> chats;
+	vector<Chat> chats;
 	int i = 0;
 
 public:
@@ -23,11 +23,11 @@ public:
 
 	void ListChats(string name);
 
-	void CreateChat(string u_name);
+	void CreateChat(string u_name, string c_name);
 
 	void DeleteChat(int id);
 
-	Chat getChat(int id);
+	Chat* getChat(int id);
 
 	void Control(string u_name);
 };

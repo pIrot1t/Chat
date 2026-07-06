@@ -54,5 +54,5 @@ public:
 
 	void DeleteAccount(Data name, Data password);
 
-	string SignIn();
+	void SignIn(string& name);
 };

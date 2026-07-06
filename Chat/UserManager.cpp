@@ -40,7 +40,7 @@ void UserManager::DeleteAccount(Data name, Data password)
 	}
 }
 
-string UserManager::SignIn()
+void UserManager::SignIn(string& _name)
 {
 	Data name;
 	Data password;
@@ -55,10 +55,8 @@ string UserManager::SignIn()
 	{
 		if (user == User(name, password))
 		{
-			cout << "Success" << endl;
-			return user._name;
+			_name = name;
+			return ;
 		}
 	}
-	cout << "NULL" << endl;
-	return "";
 }
