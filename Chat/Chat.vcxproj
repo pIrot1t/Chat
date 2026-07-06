@@ -127,6 +127,8 @@
     <ClCompile Include="sha1.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Chat.h" />
+    <ClInclude Include="ChatManager.h" />
     <ClInclude Include="sha1.h" />
     <ClInclude Include="UserManager.h" />
   </ItemGroup>

@@ -16,50 +16,116 @@ class UserManager
 private:
 	struct User
 	{
-		Data _user_name;
+		Data _name;
 		uint _password;
+		vector<int> _chatsID;
 
-		User() : _user_name(""), _password(-1) {};
+		User() : _name(""), _password(-1) {};
 		User(Data name, Data password)
 		{
-			strcpy_s(_user_name, name);
+			strcpy_s(_name, name);
 			_password = *sha1(password, sizeof(password) - 1);
 		};
 
 		~User() = default;
+
+		bool operator ==(const User& other)
+		{
+			if (!strcmp(_name, other._name) && _password == other._password)
+			{
+				return true;
+			}
+			return false;
+		}
+
+		void addChat(int id)
+		{
+			_chatsID.push_back(id);
+		}
+
+		void delChat(int id)
+		{
+			for (vector<int>::iterator it = _chatsID.begin(); it != _chatsID.end();)
+			{
+				if (*it == id)
+				{
+					_chatsID.erase(it);
+					return;
+				}
+				else
+				{
+					++it;
+				}
+			}
+		}
 
 	};
 
 	vector<User> users;
 
 public:
-	void Register(Data name, Data password)
+
+	UserManager() = default;
+
+	~UserManager()
 	{
-		for (int i = 0; i < users.size(); i++)
+		users.clear();
+	}
+
+	void Register()
+	{
+		Data name;
+		Data password;
+		system("cls");
+		cout << endl << "						   <<GigaWord>>" << endl;
+		cout << " ======================================================================================================================" << endl << endl;
+		cout << "						  sign up account" << endl << endl;
+		cout << " ======================================================================================================================" << endl << endl;
+		cout << "						Enter name: ";
+		cin >> name;
+		cout << "						Enter password: ";
+		cin >> password;
+		for (User& user : users)
 		{
-			if (!strcmp(users[i]._user_name, name))
+			if (!strcmp(user._name, name))
 			{
-				cout << "ERROR" << endl;
 				return;
 			}
 		}
-		users.push_back({ name, password });
-		cout << "Success" << endl;
+		users.emplace_back(User(name, password));
+		return;
 	}
 
 	void DeleteAccount(Data name, Data password)
 	{
-		for (int i = 0; i < users.size(); i++)
+		for (vector<User>::iterator it = users.begin(); it != users.end();)
 		{
-			cout << users[i]._user_name << " " << users[i]._password << endl;
+			if (*it == User(name, password))
+			{
+				users.erase(it);
+				return;
+			}
+			else
+			{
+				++it;
+			}
 		}
 	}
 
-	bool SignIn(Data name, Data password)
+	bool SignIn()
 	{
-		for (int i = 0; i < users.size(); i++)
+		Data name;
+		Data password;
+		system("cls");
+		cout << endl << "						   <<GigaWord>>" << endl;
+		cout << " ======================================================================================================================" << endl << endl;
+		cout << "	Enter name: ";
+		cin >> name;
+		cout << "	Enter password: ";
+		cin >> password;
+		for (User& user : users)
 		{
-			if (!strcmp(users[i]._user_name, name) && users[i]._password == *sha1(password, sizeof(password) - 1))
+			if (!strcmp(user._name, name) && user._password == *sha1(password, sizeof(password) - 1))
 			{
 				cout << "Success" << endl;
 				return true;
