@@ -18,17 +18,17 @@ int main()
 		cout << "						0 - leave GigaWord" << endl;
 		if (*name != "")
 		{
-			cout << "						1 - create chat" << endl;
-			cout << "						2 - sign in chat" << endl;
-			cout << "						3 - leave account" << endl;
-			cout << endl << "		{ " << *name << " }" << endl;
+			cout << "						1 - chats" << endl;
+			cout << "						2 - leave account" << endl << endl;
+			cout << "						{ " << *name << " }";
 		}
 		else
 		{
 			cout << "						1 - sign up account" << endl;
 			cout << "						2 - sign in account" << endl;
 		}
-		cout << endl << " ======================================================================================================================" << endl << endl;
+		cout << endl;
+		cout << " ======================================================================================================================" << endl << endl;
 		cout << "						Enter: ";
 
 		cin >> *com;
@@ -45,7 +45,7 @@ int main()
 		case 1:
 			if (*name != "")
 			{
-
+				chatM->Control(*name);
 			}
 			else
 			{
@@ -55,7 +55,7 @@ int main()
 		case 2:
 			if (*name != "")
 			{
-
+				*name = "";
 			}
 			else
 			{

@@ -18,7 +18,6 @@ private:
 	{
 		Data _name;
 		uint _password;
-		vector<int> _chatsID;
 
 		User(Data name, Data password)
 		{
@@ -35,32 +34,6 @@ private:
 				return true;
 			}
 			return false;
-		}
-
-		void addChat(int id)
-		{
-			_chatsID.push_back(id);
-		}
-
-		void delChat(int id)
-		{
-			for (vector<int>::iterator it = _chatsID.begin(); it != _chatsID.end();)
-			{
-				if (*it == id)
-				{
-					_chatsID.erase(it);
-					return;
-				}
-				else
-				{
-					++it;
-				}
-			}
-		}
-
-		vector<int> getChats()
-		{
-			return _chatsID;
 		}
 
 	};

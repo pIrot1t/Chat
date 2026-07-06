@@ -21,15 +21,13 @@ public:
 		chats.clear();
 	}
 
-	void ListChats();
+	void ListChats(string name);
 
-	void CreateChat(string name, vector<string> senders);
+	void CreateChat(string name, string user_name);
 
 	void DeleteChat(int id);
 
 	Chat getChat(int id);
 
-	void Interface(Chat& chat);
-
-	void Control(int id, string name);
+	void Control(string name);
 };

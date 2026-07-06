@@ -27,6 +27,7 @@ private:
 	string name;
 
 public:
+	Chat(string name) : name(name) {};
 	Chat(string name, vector<string> senders) : name(name), senders(senders) {};
 
 	~Chat() 
@@ -37,9 +38,15 @@ public:
 
 	string getName();
 
+	vector<string> getSenders();
+
+	void addSender(string name);
+
 	void ListSenders();
 
 	void Send(string mes, string sender);
 	
 	void ViewMessages();
+
+	void UseChat(string user_name);
 };

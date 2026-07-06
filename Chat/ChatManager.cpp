@@ -1,17 +1,24 @@
 #include "ChatManager.h"
 
 
-void ChatManager::ListChats()
+void ChatManager::ListChats(string name)
 {
 	for (map<int, Chat>::iterator it = chats.begin(); it != chats.end(); ++it)
 	{
-		cout << it->first << " : " << it->second.getName() << endl;
+		vector<string> senders = it->second.getSenders();
+		for (string& sender : senders)
+		{
+			if (sender == name)
+			{
+				cout << it->first << " : " << it->second.getName() << endl;
+			}
+		}
 	}
 }
 
-void ChatManager::CreateChat(string name, vector<string> senders)
+void ChatManager::CreateChat(string name, string user_name)
 {
-	chats.insert({ i++, Chat(name, senders) });
+	chats.insert({ i++, Chat(name) });
 }
 
 void ChatManager::DeleteChat(int id)
@@ -25,26 +32,20 @@ Chat ChatManager::getChat(int id)
 	return chats.at(id);
 }
 
-void ChatManager::Interface(Chat& chat)
-{
-	system("cls");
-	cout << chat.getName() << endl << endl;
-	cout << "===================================================================" << endl << endl;
-	chat.ViewMessages();
-	cout << endl;
-	cout << "0 - exit | 1 - send message | 2 - list users" << endl;
-	cout << "===================================================================" << endl << endl;
-	cout << "Enter: ";
-}
-
-void ChatManager::Control(int id, string name)
+void ChatManager::Control(string name)
 {
 	int* com = new int;
 	Chat* chat = new Chat(getChat(id));
 	while (true)
 	{
 		string* mes = new string;
-		Interface(*chat);
+		system("cls");
+		cout << endl << "						   <<GigaWord>>" << endl;
+		cout << " ======================================================================================================================" << endl << endl;
+		ListChats(name);
+		cout << "		0 - return to main page | 1 - enter chat | 2 - create chat" << endl;
+		cout << " ======================================================================================================================" << endl << endl;
+		cout << "						Enter: ";
 		cin >> *com;
 		switch (*com)
 		{
@@ -55,15 +56,10 @@ void ChatManager::Control(int id, string name)
 			return;
 			break;
 		case 1:
-			Interface(*chat);
-			getline(cin, *mes);
-			if (*mes == "0")
-				break;
-			chat->Send(*mes, name);
-			delete mes;
+
 			break;
 		case 2:
-			chat->ListSenders();
+
 			break;
 		default:
 			break;
