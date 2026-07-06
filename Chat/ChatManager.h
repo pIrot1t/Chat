@@ -23,11 +23,11 @@ public:
 
 	void ListChats(string name);
 
-	void CreateChat(string name, string user_name);
+	void CreateChat(string u_name);
 
 	void DeleteChat(int id);
 
 	Chat getChat(int id);
 
-	void Control(string name);
+	void Control(string u_name);
 };

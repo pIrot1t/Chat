@@ -27,6 +27,7 @@ private:
 	string name;
 
 public:
+	Chat() : name("") {};
 	Chat(string name) : name(name) {};
 	Chat(string name, vector<string> senders) : name(name), senders(senders) {};
 
