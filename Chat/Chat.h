@@ -35,29 +35,11 @@ public:
 		messages.clear();
 	}
 
-	string getName()
-	{
-		return name;
-	}
+	string getName();
 
-	void ListSenders()
-	{
-		for (string& sender : senders)
-		{
-			cout << sender << endl;
-		}
-	}
+	void ListSenders();
 
-	void Send(string mes, string sender)
-	{
-		messages.push_back(Message(mes, sender));
-	}
+	void Send(string mes, string sender);
 	
-	void ViewMessages()
-	{
-		for (Message& message : messages)
-		{
-			cout << message._sender << " > " << message._message << endl;
-		}
-	}
+	void ViewMessages();
 };

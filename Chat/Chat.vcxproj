@@ -123,8 +123,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Chat.cpp" />
+    <ClCompile Include="ChatManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="sha1.cpp" />
+    <ClCompile Include="UserManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Chat.h" />
