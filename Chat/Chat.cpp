@@ -48,7 +48,7 @@ int Chat::UseChat(string u_name)
 	while (true)
 	{
 		system("cls");
-		cout << "						   " << getName() << endl << endl;
+		cout << endl << "						   " << getName() << endl;
 		cout << " ======================================================================================================================" << endl << endl;
 		ViewMessages();
 		cout << endl;

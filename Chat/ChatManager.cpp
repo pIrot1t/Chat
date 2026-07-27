@@ -10,7 +10,7 @@ void ChatManager::ListChats(string name)
 		{
 			if (sender == name)
 			{
-				cout << it->getID() << " : " << it->getName() << endl;
+				cout << "				" << it->getID() << "	:	" << it->getName() << endl;
 			}
 		}
 	}
@@ -59,9 +59,10 @@ void ChatManager::Control(string u_name)
 	{
 		system("cls");
 		cout << endl << "						   <<GigaWord>>" << endl;
-		cout << " ======================================================================================================================" << endl << endl;
+		cout << " ======================================================================================================================" << endl;
+		cout << "				id	|	chat's name" << endl << endl;
 		ListChats(u_name);
-		cout << "		0 - return to main page | 1 - enter chat | 2 - create chat" << endl;
+		cout << endl << "		0 - return to main page | 1 - enter chat | 2 - create chat" << endl;
 		cout << " ======================================================================================================================" << endl << endl;
 		cout << "						Enter: ";
 		cin >> com;
@@ -74,8 +75,9 @@ void ChatManager::Control(string u_name)
 			system("cls");
 			cout << endl << "						   <<GigaWord>>" << endl;
 			cout << " ======================================================================================================================" << endl << endl;
+			cout << "				id	|	chat's name" << endl << endl;
 			ListChats(u_name);
-			cout << "						--enter chat ID--" << endl;
+			cout << endl << "						--enter chat ID--" << endl;
 			cout << " ======================================================================================================================" << endl << endl;
 			cout << "						Enter: ";
 			cin >> com;
@@ -92,8 +94,9 @@ void ChatManager::Control(string u_name)
 			system("cls");
 			cout << endl << "						   <<GigaWord>>" << endl;
 			cout << " ======================================================================================================================" << endl << endl;
+			cout << "				id	|	chat's name" << endl << endl;
 			ListChats(u_name);
-			cout << "						--enter chat name--" << endl;
+			cout << endl << "						--enter chat name--" << endl;
 			cout << " ======================================================================================================================" << endl << endl;
 			cout << "						Enter: ";
 			cin.ignore();
