@@ -47,9 +47,11 @@ void UserManager::SignIn(string& _name)
 	system("cls");
 	cout << endl << "						   <<GigaWord>>" << endl;
 	cout << " ======================================================================================================================" << endl << endl;
-	cout << "	Enter name: ";
+	cout << "						  sign in account" << endl << endl;
+	cout << " ======================================================================================================================" << endl << endl;
+	cout << "						Enter name: ";
 	cin >> name;
-	cout << "	Enter password: ";
+	cout << "						Enter password: ";
 	cin >> password;
 	for (User& user : users)
 	{

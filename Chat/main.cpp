@@ -8,19 +8,19 @@ int main()
 {
 	UserManager* userM = new UserManager;
 	ChatManager* chatM = new ChatManager;
-	string* name = new string("");
-	int* com = new int;
+	string name = "";
+	int com;
 	while (true)
 	{
 		system("cls");
 		cout << endl << "						   <<GigaWord>>" << endl;
 		cout << " ======================================================================================================================" << endl << endl;
 		cout << "						0 - leave GigaWord" << endl;
-		if (*name != "")
+		if (name != "")
 		{
 			cout << "						1 - chats" << endl;
 			cout << "						2 - leave account" << endl << endl;
-			cout << "						{ " << *name << " }";
+			cout << "						{ " << name << " }";
 		}
 		else
 		{
@@ -31,21 +31,19 @@ int main()
 		cout << " ======================================================================================================================" << endl << endl;
 		cout << "	Enter: ";
 
-		cin >> *com;
+		cin >> com;
 
-		switch (*com)
+		switch (com)
 		{
 		case 0:
 			delete userM;
 			delete chatM;
-			delete name;
-			delete com;
 			return 0;
 			break;
 		case 1:
-			if (*name != "")
+			if (name != "")
 			{
-				chatM->Control(*name);
+				chatM->Control(name);
 			}
 			else
 			{
@@ -53,13 +51,13 @@ int main()
 			}
 			break;
 		case 2:
-			if (*name != "")
+			if (name != "")
 			{
-				*name = "";
+				name = "";
 			}
 			else
 			{
-				userM->SignIn(*name);
+				userM->SignIn(name);
 			}
 			break;
 		default:

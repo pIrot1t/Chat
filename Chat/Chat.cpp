@@ -52,7 +52,7 @@ int Chat::UseChat(string u_name)
 		cout << " ======================================================================================================================" << endl << endl;
 		ViewMessages();
 		cout << endl;
-		cout << "						0 - return back | 1 - send message | 2 - menu" << endl;
+		cout << "		0 - return back | 1 - send message | 2 - menu" << endl;
 		cout << " ======================================================================================================================" << endl << endl;
 		cout << "	Enter: ";
 		cin >> com;
@@ -80,7 +80,7 @@ int Chat::UseChat(string u_name)
 			cout << " ======================================================================================================================" << endl << endl;
 			ListSenders();
 			cout << endl;
-			cout << "						0 - return back | 1 - add user | 2 - leave chat | 3 - delete chat" << endl;
+			cout << "		0 - return back | 1 - add user | 2 - leave chat | 3 - delete chat" << endl;
 			cout << " ======================================================================================================================" << endl << endl;
 			cout << "	Enter: ";
 			cin >> com;

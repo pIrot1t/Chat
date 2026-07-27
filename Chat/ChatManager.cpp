@@ -75,7 +75,7 @@ void ChatManager::Control(string u_name)
 			cout << endl << "						   <<GigaWord>>" << endl;
 			cout << " ======================================================================================================================" << endl << endl;
 			ListChats(u_name);
-			cout << "					enter chat ID" << endl;
+			cout << "					--enter chat ID--" << endl;
 			cout << " ======================================================================================================================" << endl << endl;
 			cout << "						Enter: ";
 			cin >> com;
@@ -93,7 +93,7 @@ void ChatManager::Control(string u_name)
 			cout << endl << "						   <<GigaWord>>" << endl;
 			cout << " ======================================================================================================================" << endl << endl;
 			ListChats(u_name);
-			cout << "					enter chat name" << endl;
+			cout << "					--enter chat name--" << endl;
 			cout << " ======================================================================================================================" << endl << endl;
 			cout << "						Enter: ";
 			cin.ignore();
