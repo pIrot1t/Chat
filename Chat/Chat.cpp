@@ -48,7 +48,7 @@ int Chat::UseChat(string u_name)
 	while (true)
 	{
 		system("cls");
-		cout << getName() << endl << endl;
+		cout << "						   " << getName() << endl << endl;
 		cout << " ======================================================================================================================" << endl << endl;
 		ViewMessages();
 		cout << endl;
@@ -63,7 +63,7 @@ int Chat::UseChat(string u_name)
 			break;
 		case 1:
 			system("cls");
-			cout << getName() << endl << endl;
+			cout << "						   " << getName() << endl << endl;
 			cout << " ======================================================================================================================" << endl << endl;
 			ViewMessages();
 			cout << endl;
@@ -76,7 +76,7 @@ int Chat::UseChat(string u_name)
 			break;
 		case 2:
 			system("cls");
-			cout << getName() << endl << endl;
+			cout << "						   " << getName() << endl << endl;
 			cout << " ======================================================================================================================" << endl << endl;
 			ListSenders();
 			cout << endl;
@@ -90,7 +90,7 @@ int Chat::UseChat(string u_name)
 				break;
 			case 1:
 				system("cls");
-				cout << getName() << endl << endl;
+				cout << "						   " << getName() << endl << endl;
 				cout << " ======================================================================================================================" << endl << endl;
 				ListSenders();
 				cout << endl;
@@ -106,7 +106,7 @@ int Chat::UseChat(string u_name)
 				{
 					if (*it == u_name)
 					{
-						senders.erase(it);
+						it = senders.erase(it);
 					}
 					else
 					{
