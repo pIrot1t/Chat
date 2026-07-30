@@ -57,8 +57,11 @@ void ChatManager::Control(string u_name)
 	string c_name;
 	while (true)
 	{
-		cout << "\033[2J\033[1;1H";
-		cout.flush();
+#if defined(_WIN32) || defined(_WIN64)
+		std::system("cls");
+#else
+		std::system("clear");
+#endif
 		cout << endl << "						   <<GigaWord>>" << endl;
 		cout << " ======================================================================================================================" << endl;
 		cout << "				id	|	chat's name" << endl << endl;
@@ -76,7 +79,7 @@ void ChatManager::Control(string u_name)
 			cout << "\033[2J\033[1;1H";
 			cout.flush();
 			cout << endl << "						   <<GigaWord>>" << endl;
-			cout << " ======================================================================================================================" << endl << endl;
+			cout << " ======================================================================================================================" << endl;
 			cout << "				id	|	chat's name" << endl << endl;
 			ListChats(u_name);
 			cout << endl << "						--enter chat ID--" << endl;
@@ -93,10 +96,13 @@ void ChatManager::Control(string u_name)
 			}
 			break;
 		case 2:
-			cout << "\033[2J\033[1;1H";
-			cout.flush();
+#if defined(_WIN32) || defined(_WIN64)
+			std::system("cls");
+#else
+			std::system("clear");
+#endif
 			cout << endl << "						   <<GigaWord>>" << endl;
-			cout << " ======================================================================================================================" << endl << endl;
+			cout << " ======================================================================================================================" << endl;
 			cout << "				id	|	chat's name" << endl << endl;
 			ListChats(u_name);
 			cout << endl << "						--enter chat name--" << endl;

@@ -47,8 +47,11 @@ int Chat::UseChat(string u_name)
 	string mess;
 	while (true)
 	{
-		cout << "\033[2J\033[1;1H";
-		cout.flush();
+#if defined(_WIN32) || defined(_WIN64)
+		std::system("cls");
+#else
+		std::system("clear");
+#endif
 		cout << endl << "						   " << getName() << endl;
 		cout << " ======================================================================================================================" << endl << endl;
 		ViewMessages();
@@ -63,8 +66,11 @@ int Chat::UseChat(string u_name)
 			return 0;
 			break;
 		case 1:
-			cout << "\033[2J\033[1;1H";
-			cout.flush();
+#if defined(_WIN32) || defined(_WIN64)
+			std::system("cls");
+#else
+			std::system("clear");
+#endif
 			cout << "						   " << getName() << endl << endl;
 			cout << " ======================================================================================================================" << endl << endl;
 			ViewMessages();
@@ -77,8 +83,11 @@ int Chat::UseChat(string u_name)
 			Send(mess, u_name);
 			break;
 		case 2:
-			cout << "\033[2J\033[1;1H";
-			cout.flush();
+#if defined(_WIN32) || defined(_WIN64)
+			std::system("cls");
+#else
+			std::system("clear");
+#endif
 			cout << "						   " << getName() << endl << endl;
 			cout << " ======================================================================================================================" << endl << endl;
 			ListSenders();
@@ -92,8 +101,11 @@ int Chat::UseChat(string u_name)
 			case 0:
 				break;
 			case 1:
-				cout << "\033[2J\033[1;1H";
-				cout.flush();
+#if defined(_WIN32) || defined(_WIN64)
+				std::system("cls");
+#else
+				std::system("clear");
+#endif
 				cout << "						   " << getName() << endl << endl;
 				cout << " ======================================================================================================================" << endl << endl;
 				ListSenders();

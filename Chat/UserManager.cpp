@@ -5,8 +5,11 @@ void UserManager::Register()
 {
 	string name;
 	Data password;
-	cout << "\033[2J\033[1;1H";
-	cout.flush();
+#if defined(_WIN32) || defined(_WIN64)
+	std::system("cls");
+#else
+	std::system("clear");
+#endif
 	cout << endl << "						   <<GigaWord>>" << endl;
 	cout << " ======================================================================================================================" << endl << endl;
 	cout << "						  sign up account" << endl << endl;
@@ -45,8 +48,11 @@ void UserManager::SignIn(string& _name)
 {
 	string name;
 	Data password;
-	cout << "\033[2J\033[1;1H";
-	cout.flush();
+#if defined(_WIN32) || defined(_WIN64)
+	std::system("cls");
+#else
+	std::system("clear");
+#endif
 	cout << endl << "						   <<GigaWord>>" << endl;
 	cout << " ======================================================================================================================" << endl << endl;
 	cout << "						  sign in account" << endl << endl;

@@ -12,8 +12,11 @@ int main()
 	int com;
 	while (true)
 	{
-		cout << "\033[2J\033[1;1H";
-		cout.flush();
+#if defined(_WIN32) || defined(_WIN64)
+		std::system("cls");
+#else
+		std::system("clear");
+#endif
 		cout << endl << "						   <<GigaWord>>" << endl;
 		cout << " ======================================================================================================================" << endl << endl;
 		cout << "						0 - leave GigaWord" << endl;
@@ -39,6 +42,11 @@ int main()
 		switch (com)
 		{
 		case 0:
+#if defined(_WIN32) || defined(_WIN64)
+			std::system("cls");
+#else
+			std::system("clear");
+#endif
 			delete userM;
 			delete chatM;
 			return 0;
