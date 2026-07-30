@@ -12,7 +12,8 @@ int main()
 	int com;
 	while (true)
 	{
-		system("cls");
+		cout << "\033[2J\033[1;1H";
+		cout.flush();
 		cout << endl << "						   <<GigaWord>>" << endl;
 		cout << " ======================================================================================================================" << endl << endl;
 		cout << "						0 - leave GigaWord" << endl;
@@ -32,6 +33,8 @@ int main()
 		cout << "						Enter: ";
 
 		cin >> com;
+		cout << "\033[2J\033[1;1H";
+		cout.flush();
 
 		switch (com)
 		{

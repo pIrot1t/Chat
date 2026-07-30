@@ -16,12 +16,11 @@ class UserManager
 private:
 	struct User
 	{
-		Data _name;
+		string _name;
 		uint _password;
 
-		User(Data name, Data password)
+		User(string name, Data password) : _name(name)
 		{
-			strcpy_s(_name, name);
 			_password = *sha1(password, sizeof(password) - 1);
 		};
 
@@ -29,7 +28,7 @@ private:
 
 		bool operator ==(const User& other)
 		{
-			if (!strcmp(_name, other._name) && _password == other._password)
+			if (_name == other._name && _password == other._password)
 			{
 				return true;
 			}
@@ -52,7 +51,7 @@ public:
 
 	void Register();
 
-	void DeleteAccount(Data name, Data password);
+	void DeleteAccount(string name, Data password);
 
 	void SignIn(string& name);
 };

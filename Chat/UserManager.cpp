@@ -3,9 +3,10 @@
 
 void UserManager::Register()
 {
-	Data name;
+	string name;
 	Data password;
-	system("cls");
+	cout << "\033[2J\033[1;1H";
+	cout.flush();
 	cout << endl << "						   <<GigaWord>>" << endl;
 	cout << " ======================================================================================================================" << endl << endl;
 	cout << "						  sign up account" << endl << endl;
@@ -16,7 +17,7 @@ void UserManager::Register()
 	cin >> password;
 	for (User& user : users)
 	{
-		if (!strcmp(user._name, name))
+		if (user._name == name)
 		{
 			return;
 		}
@@ -24,7 +25,7 @@ void UserManager::Register()
 	users.emplace_back(User(name, password));
 }
 
-void UserManager::DeleteAccount(Data name, Data password)
+void UserManager::DeleteAccount(string name, Data password)
 {
 	for (vector<User>::iterator it = users.begin(); it != users.end();)
 	{
@@ -42,9 +43,10 @@ void UserManager::DeleteAccount(Data name, Data password)
 
 void UserManager::SignIn(string& _name)
 {
-	Data name;
+	string name;
 	Data password;
-	system("cls");
+	cout << "\033[2J\033[1;1H";
+	cout.flush();
 	cout << endl << "						   <<GigaWord>>" << endl;
 	cout << " ======================================================================================================================" << endl << endl;
 	cout << "						  sign in account" << endl << endl;

@@ -57,7 +57,8 @@ void ChatManager::Control(string u_name)
 	string c_name;
 	while (true)
 	{
-		system("cls");
+		cout << "\033[2J\033[1;1H";
+		cout.flush();
 		cout << endl << "						   <<GigaWord>>" << endl;
 		cout << " ======================================================================================================================" << endl;
 		cout << "				id	|	chat's name" << endl << endl;
@@ -72,7 +73,8 @@ void ChatManager::Control(string u_name)
 			return;
 			break;
 		case 1:
-			system("cls");
+			cout << "\033[2J\033[1;1H";
+			cout.flush();
 			cout << endl << "						   <<GigaWord>>" << endl;
 			cout << " ======================================================================================================================" << endl << endl;
 			cout << "				id	|	chat's name" << endl << endl;
@@ -91,7 +93,8 @@ void ChatManager::Control(string u_name)
 			}
 			break;
 		case 2:
-			system("cls");
+			cout << "\033[2J\033[1;1H";
+			cout.flush();
 			cout << endl << "						   <<GigaWord>>" << endl;
 			cout << " ======================================================================================================================" << endl << endl;
 			cout << "				id	|	chat's name" << endl << endl;

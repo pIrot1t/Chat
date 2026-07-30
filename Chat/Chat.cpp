@@ -47,7 +47,8 @@ int Chat::UseChat(string u_name)
 	string mess;
 	while (true)
 	{
-		system("cls");
+		cout << "\033[2J\033[1;1H";
+		cout.flush();
 		cout << endl << "						   " << getName() << endl;
 		cout << " ======================================================================================================================" << endl << endl;
 		ViewMessages();
@@ -62,7 +63,8 @@ int Chat::UseChat(string u_name)
 			return 0;
 			break;
 		case 1:
-			system("cls");
+			cout << "\033[2J\033[1;1H";
+			cout.flush();
 			cout << "						   " << getName() << endl << endl;
 			cout << " ======================================================================================================================" << endl << endl;
 			ViewMessages();
@@ -75,7 +77,8 @@ int Chat::UseChat(string u_name)
 			Send(mess, u_name);
 			break;
 		case 2:
-			system("cls");
+			cout << "\033[2J\033[1;1H";
+			cout.flush();
 			cout << "						   " << getName() << endl << endl;
 			cout << " ======================================================================================================================" << endl << endl;
 			ListSenders();
@@ -89,7 +92,8 @@ int Chat::UseChat(string u_name)
 			case 0:
 				break;
 			case 1:
-				system("cls");
+				cout << "\033[2J\033[1;1H";
+				cout.flush();
 				cout << "						   " << getName() << endl << endl;
 				cout << " ======================================================================================================================" << endl << endl;
 				ListSenders();
