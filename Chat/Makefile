@@ -3,7 +3,7 @@ TARGET = chat
 PREFIX = /usr/local/bin
 
 chat:	$(SRC)
-	g++ $(SRC) -o $(TARGET)
+	g++ $(SRC) -o $(TARGET) -std=c++17
 
 install:
 	sudo install $(TARGET) $(PREFIX)
