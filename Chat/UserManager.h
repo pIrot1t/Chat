@@ -1,7 +1,5 @@
 #pragma once
 #include <iostream>
-#include <fstream>
-#include <filesystem>
 #include <string>
 #include <vector>
 #include "sha1.h"
@@ -13,8 +11,6 @@ typedef unsigned int uint;
 
 using namespace std;
 
-namespace fs = filesystem;
-
 class UserManager
 {
 private:
@@ -23,7 +19,6 @@ private:
 		string _name;
 		uint _password;
 
-		User() : _name(""), _password(-1) {};
 		User(string name, Data password) : _name(name)
 		{
 			_password = *sha1(password, sizeof(password) - 1);
@@ -42,28 +37,21 @@ private:
 
 	};
 
-	fstream users_data;
-
 	vector<User> users;
 	int i = 0;
 
 public:
 
-	friend fstream& operator >>(fstream& is, User& usr);
+	UserManager() = default;
 
-	friend ostream& operator <<(ostream& os, const User& usr);
-
-	UserManager();
-
-	~UserManager();
-
-	void SaveUsers();
-
-	void LoadUsers();
+	~UserManager()
+	{
+		users.clear();
+	}
 
 	void Register();
 
-	void DeleteAccount();
+	void DeleteAccount(string name, Data password);
 
 	void SignIn(string& name);
 };

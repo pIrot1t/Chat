@@ -1,43 +1,5 @@
 #include "ChatManager.h"
 
-ostream& operator <<(ostream& os, const Chat& chat)
-{
-	os << chat.getName() << " " << chat.getID() << endl;
-	return os;
-}
-
-ChatManager::ChatManager()
-{
-	LoadChats();
-}
-
-ChatManager::~ChatManager()
-{
-	SaveChats();
-}
-
-void ChatManager::SaveChats()
-{
-	chats_data.open("chats_data.txt", ios::out | ios::trunc);
-	for (Chat& chat : chats)
-	{
-		chats_data << chat;
-	}
-	chats_data.close();
-}
-
-void ChatManager::LoadChats()
-{
-	chats_data.open("chats_data.txt", ios::in);
-	string name;
-	int id;
-	while (chats_data >> name >> id)
-	{
-		chats.push_back(Chat(id, name));
-		i++;
-	}
-	chats_data.close();
-}
 
 void ChatManager::ListChats(string name)
 {
@@ -67,7 +29,6 @@ void ChatManager::DeleteChat(int id)
 	{
 		if (it->getID() == id)
 		{
-			fs::remove_all(it->getName() + to_string(it->getID()));
 			it = chats.erase(it);
 		}
 		else
@@ -97,9 +58,9 @@ void ChatManager::Control(string u_name)
 	while (true)
 	{
 #if defined(_WIN32) || defined(_WIN64)
-		system("cls");
+		std::system("cls");
 #else
-		system("clear");
+		std::system("clear");
 #endif
 		cout << endl << "						   <<GigaWord>>" << endl;
 		cout << " ======================================================================================================================" << endl;
@@ -115,11 +76,8 @@ void ChatManager::Control(string u_name)
 			return;
 			break;
 		case 1:
-#if defined(_WIN32) || defined(_WIN64)
-			system("cls");
-#else
-			system("clear");
-#endif
+			cout << "\033[2J\033[1;1H";
+			cout.flush();
 			cout << endl << "						   <<GigaWord>>" << endl;
 			cout << " ======================================================================================================================" << endl;
 			cout << "				id	|	chat's name" << endl << endl;
@@ -139,9 +97,9 @@ void ChatManager::Control(string u_name)
 			break;
 		case 2:
 #if defined(_WIN32) || defined(_WIN64)
-			system("cls");
+			std::system("cls");
 #else
-			system("clear");
+			std::system("clear");
 #endif
 			cout << endl << "						   <<GigaWord>>" << endl;
 			cout << " ======================================================================================================================" << endl;

@@ -1,14 +1,10 @@
 #pragma once
 #include <iostream>
-#include <fstream>
-#include <filesystem>
 #include <string>
 #include <vector>
 #include <list>
 
 using namespace std;
-
-namespace fs = filesystem;
 
 class Chat
 {
@@ -18,39 +14,35 @@ private:
 		string _message;
 		string _sender;
 
-		Message() : _message(""), _sender("") {};
 		Message(string message, string sender) : _message(message), _sender(sender) {};
 
-		~Message() = default;
+		~Message() 
+		{
+			_message.clear();
+		};
 	};
 
 	vector<string> senders;
-	vector<Message> messages;
-	string _name;
-	int _id;
+	list<Message> messages;
+	string name;
+	int id;
 
 public:
+	Chat() : id(-1), name("") {};
+	Chat(int id, string name) : id(id), name(name) {};
+	Chat(int id, string name, vector<string> senders) : id(id), name(name), senders(senders) {};
 
-	friend fstream& operator >>(fstream& is, Message& mess);
+	~Chat() 
+	{
+		senders.clear();
+		messages.clear();
+	}
 
-	friend ostream& operator <<(ostream& os, const Message& mess);
+	int getID();
 
-	Chat() : _id(-1), _name("") {};
-	Chat(int id, string name);
-	Chat(int id, string name, vector<string> senders) : _id(id), _name(name), senders(senders) {};
+	string getName();
 
-	~Chat();
-
-
-	void SaveChat();
-
-	void LoadChat();
-
-	int getID() const;
-
-	string getName() const;
-
-	vector<string> getSenders() const;
+	vector<string> getSenders();
 
 	void addSender(string name);
 

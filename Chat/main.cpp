@@ -13,9 +13,9 @@ int main()
 	while (true)
 	{
 #if defined(_WIN32) || defined(_WIN64)
-		system("cls");
+		std::system("cls");
 #else
-		system("clear");
+		std::system("clear");
 #endif
 		cout << endl << "						   <<GigaWord>>" << endl;
 		cout << " ======================================================================================================================" << endl << endl;
@@ -23,8 +23,7 @@ int main()
 		if (name != "")
 		{
 			cout << "						1 - chats" << endl;
-			cout << "						2 - leave account" << endl;
-			cout << "						3 - delete account" << endl << endl;
+			cout << "						2 - leave account" << endl << endl;
 			cout << "						{ " << name << " }";
 		}
 		else
@@ -37,14 +36,16 @@ int main()
 		cout << "						Enter: ";
 
 		cin >> com;
+		cout << "\033[2J\033[1;1H";
+		cout.flush();
 
 		switch (com)
 		{
 		case 0:
 #if defined(_WIN32) || defined(_WIN64)
-			system("cls");
+			std::system("cls");
 #else
-			system("clear");
+			std::system("clear");
 #endif
 			delete userM;
 			delete chatM;
@@ -68,13 +69,6 @@ int main()
 			else
 			{
 				userM->SignIn(name);
-			}
-			break;
-		case 3:
-			if (name != "")
-			{
-				name = "";
-				userM->DeleteAccount();
 			}
 			break;
 		default:
