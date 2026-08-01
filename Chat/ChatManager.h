@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <filesystem>
 #include <string>
 #include <map>
 #include "Chat.h"
@@ -9,17 +10,22 @@ using namespace std;
 class ChatManager
 {
 private:
+	fstream chats_data;
+
 	vector<Chat> chats;
 	int i = 0;
 
 public:
 
-	ChatManager() = default;
+	friend ostream& operator <<(ostream& os, const Chat& chat);
 
-	~ChatManager()
-	{
-		chats.clear();
-	}
+	ChatManager();
+
+	~ChatManager();
+
+	void SaveChats();
+
+	void LoadChats();
 
 	void ListChats(string name);
 

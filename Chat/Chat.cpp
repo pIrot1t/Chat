@@ -1,16 +1,86 @@
 #include "Chat.h"
 
-int Chat::getID()
+fstream& operator >>(fstream& is, Chat::Message& mess)
 {
-	return id;
+	is >> mess._sender;
+	getline(is, mess._message);
+	return is;
 }
 
-string Chat::getName()
+ostream& operator <<(ostream& os, const Chat::Message& mess)
 {
-	return name;
+	os << mess._sender << " " << mess._message << endl;
+	return os;
 }
 
-vector<string> Chat::getSenders()
+Chat::Chat(int id, string name) : _id(id), _name(name)
+{
+	LoadChat();
+}
+
+Chat::~Chat()
+{
+	SaveChat();
+}
+
+void Chat::SaveChat()
+{
+	if (fs::exists(_name + to_string(_id) + "/"))
+	{
+		fstream chat_data;
+		chat_data.open(_name + to_string(_id) + "/chat_senders.txt", ios::out | ios::trunc);
+		for (string& sender : senders)
+		{
+			chat_data << sender << endl;
+		}
+		chat_data.close();
+		chat_data.open(_name + to_string(_id) + "/chat_messages.txt", ios::out | ios::trunc);
+		for (Message& mess : messages)
+		{
+			chat_data << mess;
+		}
+		chat_data.close();
+	}
+	else
+	{
+		fs::create_directory(_name + to_string(_id));
+		SaveChat();
+	}
+}
+
+void Chat::LoadChat()
+{
+	if (fs::exists(_name + to_string(_id) + "/"))
+	{
+		fstream chat_data;
+		chat_data.open(_name + to_string(_id) + "/chat_senders.txt", ios::in);
+		string sender;
+		while (chat_data >> sender)
+		{
+			senders.push_back(sender);
+		}
+		chat_data.close();
+		chat_data.open(_name + to_string(_id) + "/chat_messages.txt", ios::in);
+		Message mess;
+		while (chat_data >> mess)
+		{
+			messages.push_back(mess);
+		}
+		chat_data.close();
+	}
+}
+
+int Chat::getID() const
+{
+	return _id;
+}
+
+string Chat::getName() const
+{
+	return _name;
+}
+
+vector<string> Chat::getSenders() const
 {
 	return senders;
 }
@@ -48,9 +118,9 @@ int Chat::UseChat(string u_name)
 	while (true)
 	{
 #if defined(_WIN32) || defined(_WIN64)
-		std::system("cls");
+		system("cls");
 #else
-		std::system("clear");
+		system("clear");
 #endif
 		cout << endl << "						   " << getName() << endl;
 		cout << " ======================================================================================================================" << endl << endl;
@@ -67,9 +137,9 @@ int Chat::UseChat(string u_name)
 			break;
 		case 1:
 #if defined(_WIN32) || defined(_WIN64)
-			std::system("cls");
+			system("cls");
 #else
-			std::system("clear");
+			system("clear");
 #endif
 			cout << "						   " << getName() << endl << endl;
 			cout << " ======================================================================================================================" << endl << endl;
@@ -84,9 +154,9 @@ int Chat::UseChat(string u_name)
 			break;
 		case 2:
 #if defined(_WIN32) || defined(_WIN64)
-			std::system("cls");
+			system("cls");
 #else
-			std::system("clear");
+			system("clear");
 #endif
 			cout << "						   " << getName() << endl << endl;
 			cout << " ======================================================================================================================" << endl << endl;
@@ -102,9 +172,9 @@ int Chat::UseChat(string u_name)
 				break;
 			case 1:
 #if defined(_WIN32) || defined(_WIN64)
-				std::system("cls");
+				system("cls");
 #else
-				std::system("clear");
+				system("clear");
 #endif
 				cout << "						   " << getName() << endl << endl;
 				cout << " ======================================================================================================================" << endl << endl;
