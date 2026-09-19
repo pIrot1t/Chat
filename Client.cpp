@@ -42,10 +42,10 @@ string Client::GetMessage()
     return message;
 }
 
-void Client::SendMessage(char *_message)
+void Client::SendMessage(const char *_message)
 {
     bzero(message, sizeof(message));
-    strncpy(message, _message, sizeof(*_message));
+    strncpy(message, _message, MESSAGE_LENGTH - 1);
 
     ssize_t bytes = write(socket_file_descriptor, message, sizeof(message));
 

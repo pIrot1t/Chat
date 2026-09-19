@@ -15,16 +15,17 @@ int main()
     {
         cin >> mess;
 
-        client.SendMessage((char*)&mess);
+        client.SendMessage(mess.c_str());
 
-        if (strncmp((char*)&mess, "end", 3))
+        if (!strncmp(mess.c_str(), "end", 3))
         {
-            client.StopClient();
             break;
         }
 
-        client.GetMessage();
+        cout << client.GetMessage() << endl;
     }
+
+    client.StopClient();
 
     return 0;
 }

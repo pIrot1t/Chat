@@ -21,5 +21,5 @@ public:
 
     std::string GetMessage();
 
-    void SendMessage(char *message);
+    void SendMessage(const char *message);
 };
