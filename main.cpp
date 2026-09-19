@@ -1,17 +1,30 @@
-#include "Client.h"
 #include <iostream>
 #include <string>
+#include "Client.h"
+
 
 using namespace std;
 
-int main() {
-  Client client;
+int main()
+{
+    Client client;
 
-  client.StartClient();
+    string mess;
 
-  client.SendMessage("Hello");
+    while(client.StartClient())
+    {
+        cin >> mess;
 
-  client.GetMessage();
+        client.SendMessage((char*)&mess);
 
-  client.StopClient();
+        if (strncmp((char*)&mess, "end", 3))
+        {
+            client.StopClient();
+            break;
+        }
+
+        client.GetMessage();
+    }
+
+    return 0;
 }

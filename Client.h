@@ -1,27 +1,25 @@
-#include <arpa/inet.h>
 #include <iostream>
-#include <netinet/in.h>
 #include <string.h>
-#include <sys/socket.h>
 #include <unistd.h>
-
-using namespace std;
+#include <sys/socket.h>
+#include <arpa/inet.h>
 
 #define MESSAGE_LENGTH 1024
 #define PORT 51111
 
-class Client {
+class Client
+{
 private:
-  int socket_file_descriptor, connection;
-  struct sockaddr_in serveraddress, client;
-  char message[MESSAGE_LENGTH];
+    int socket_file_descriptor, connection;
+    struct sockaddr_in serveraddress, client;
+    char message[MESSAGE_LENGTH];
 
 public:
-  bool StartClient();
+    bool StartClient();
 
-  void StopClient();
+    void StopClient();
 
-  char GetMessage();
+    std::string GetMessage();
 
-  void SendMessage(char *message);
+    void SendMessage(char *message);
 };
