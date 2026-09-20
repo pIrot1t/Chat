@@ -11,13 +11,18 @@ int main()
 
     string mess;
 
-    while(client.StartClient())
+    if (!client.StartClient())
+    {
+        return 1;
+    }
+
+    while(true)
     {
         cin >> mess;
 
         client.SendMessage(mess.c_str());
 
-        if (!strncmp(mess.c_str(), "end", 3))
+        if (!strncmp(mess.c_str(), "END", 3))
         {
             break;
         }
