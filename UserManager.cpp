@@ -1,4 +1,5 @@
 #include "UserManager.h"
+#include <filesystem>
 
 using namespace std;
 
@@ -61,6 +62,12 @@ UserManager::~UserManager()
         }
         file.close();
     }
+}
+
+void UserManager::clearData()
+{
+    fs::remove_all("UserData");
+    user.clear();
 }
 
 int UserManager::getID()
@@ -131,9 +138,10 @@ vector<string> UserManager::EnterData(string type)
     cout << "==================================================" << endl << endl;
     string name;
     cout << "Enter name: ";
+    cin.ignore();
     getline(cin, name);
     string password;
     cout << "Enter password: ";
-    getline(cin, password);
+    cin >> password;
     return {type, name, password};
 }

@@ -10,7 +10,7 @@ class UserManager
 private:
     struct User
     {
-        int id;
+        int id = -1;
         std::string name;
         std::string password;
         std::vector<std::string> contacts;
@@ -31,6 +31,8 @@ public:
     UserManager();
 
     ~UserManager();
+
+    void clearData();
 
     int getID();
 
