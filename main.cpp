@@ -50,16 +50,18 @@ int main()
                     result = mprec(client.GetMessage());
                 break;
                 case 2:
+                {
                     vector<string> temp = userManager.EnterData("AUTHORIZ");
                     client.SendMessage(mpsen(temp).c_str());
                     result = mprec(client.GetMessage());
                     if (result[0] == "SUCCESS")
                     {
-                        userManager.setID(stoi(result[1]));
+                        userManager.setID(stoi(result[2]));
                         userManager.setName(temp[1]);
                         userManager.setPassword(temp[2]);
                         status = true;
                     }
+                }
                 break;
                 default:
                     result = {"ERROR", "Unknown command"};

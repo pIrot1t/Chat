@@ -35,7 +35,7 @@ UserManager::UserManager()
 
 UserManager::~UserManager()
 {
-    if (user.id >= 0 && !user.name.empty() && !user.password.empty() && !user.contacts.empty())
+    if (user.id >= 0 && !user.name.empty() && !user.password.empty())
     {
         if (!fs::exists("UserData"))
         {
@@ -131,7 +131,7 @@ vector<string> UserManager::EnterData(string type)
     {
         cout << "                   Authorization" << endl << endl;
     }
-    else if (type == "DELTEAC")
+    else if (type == "DELETEAC")
     {
         cout << "                   Delete account" << endl << endl;
     }
