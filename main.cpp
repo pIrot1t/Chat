@@ -103,9 +103,17 @@ int main()
                                 result = mprec(client.GetMessage());
                                 if (result[0] == "ENDLIST")
                                 {
+                                    result.clear();
                                     break;
                                 }
-                                chats.push_back(result[0] + "    " + result[1]);
+                                if (result.size() >= 2)
+                                {
+                                    chats.push_back(result[0] + "    " + result[1]);
+                                }
+                                else
+                                {
+                                    chats.push_back(result[0] + "    (unnamed)");
+                                }
                             }
                             vector<string> command = chatManager.ChatsMenu(chats);
                             if (command[0] == "RETURN")
@@ -130,6 +138,7 @@ int main()
                                         result = mprec(client.GetMessage());
                                         if (result[0] == "ENDMSGS")
                                         {
+                                            result.clear();
                                             break;
                                         }
                                         messages.push_back(result[0]);
