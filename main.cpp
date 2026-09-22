@@ -3,6 +3,7 @@
 #include "Client.h"
 #include "MessageManager.h"
 #include "UserManager.h"
+#include "ChatManager.h"
 
 
 using namespace std;
@@ -12,6 +13,8 @@ int main()
     Client client;
 
     UserManager userManager;
+
+    ChatManager chatManager;
 
     int com;
     vector<string> result;
@@ -51,7 +54,7 @@ int main()
                 break;
                 case 2:
                 {
-                    vector<string> temp = userManager.EnterData("AUTHORIZ");
+                    vector<string> temp = userManager.EnterData("AUTHORIZE");
                     client.SendMessage(mpsen(temp).c_str());
                     result = mprec(client.GetMessage());
                     if (result[0] == "SUCCESS")
@@ -90,7 +93,52 @@ int main()
                     return 0;
                 break;
                 case 1:
-                    
+                    {
+                        while (true)
+                        {
+                            client.SendMessage(mpsen({"GETCHATS"}).c_str());
+                            vector<string> chats;
+                            while (true)
+                            {
+                                result = mprec(client.GetMessage());
+                                if (result[0] == "ENDLIST")
+                                {
+                                    break;
+                                }
+                                chats.push_back(result[0] + "    " + result[1]);
+                            }
+                            vector<string> command = chatManager.ChatsMenu(chats);
+                            if (command[0] == "RETURN")
+                            {
+                                break;
+                            }
+                            else if (command[0] == "CREATECHAT")
+                            {
+                                client.SendMessage(mpsen({command[0], command[1], to_string(userManager.getID())}).c_str());
+                            }
+                            else if (command[0] == "OPENCHAT")
+                            {
+                                while (true)
+                                {
+                                    vector<string> messages;
+                                    int chatID = stoi(command[1]);
+
+                                    client.SendMessage(mpsen({"GETMSG", command[1]}).c_str());
+                                    while (true)
+                                    {
+                                        result = mprec(client.GetMessage());
+                                        if (result[0] == "ENDMSG")
+                                        {
+                                            break;
+                                        }
+                                        messages.push_back(result[0]);
+                                    }
+
+                                    chatManager.UseChat(chatID, "Chat", messages);
+                                }
+                            }
+                        }
+                    }
                 break;
                 case 2:
                     while (true)
