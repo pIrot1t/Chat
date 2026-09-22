@@ -142,7 +142,7 @@ int main()
                                     }
                                     else if (command[0] == "SENDMSG")
                                     {
-                                        client.SendMessage(mpsen({command[0], command[1]}).c_str());
+                                        client.SendMessage(mpsen({command[0], to_string(chatID), to_string(userManager.getID()), command[1]}).c_str());
                                     }
                                 }
                             }
