@@ -96,7 +96,7 @@ int main()
                     {
                         while (true)
                         {
-                            client.SendMessage(mpsen({"GETCHATS"}).c_str());
+                            client.SendMessage(mpsen({"GETCHATS", to_string(userManager.getID())}).c_str());
                             vector<string> chats;
                             while (true)
                             {
@@ -115,6 +115,7 @@ int main()
                             else if (command[0] == "CREATECHAT")
                             {
                                 client.SendMessage(mpsen({command[0], command[1], to_string(userManager.getID())}).c_str());
+                                result = mprec(client.GetMessage());
                             }
                             else if (command[0] == "OPENCHAT")
                             {
@@ -127,14 +128,22 @@ int main()
                                     while (true)
                                     {
                                         result = mprec(client.GetMessage());
-                                        if (result[0] == "ENDMSG")
+                                        if (result[0] == "ENDMSGS")
                                         {
                                             break;
                                         }
                                         messages.push_back(result[0]);
                                     }
 
-                                    chatManager.UseChat(chatID, "Chat", messages);
+                                    vector<string> command = chatManager.UseChat(chatID, "Chat", messages);
+                                    if (command[0] == "RETURN")
+                                    {
+                                        break;
+                                    }
+                                    else if (command[0] == "SENDMSG")
+                                    {
+                                        client.SendMessage(mpsen({command[0], command[1]}).c_str());
+                                    }
                                 }
                             }
                         }

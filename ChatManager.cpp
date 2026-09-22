@@ -63,12 +63,12 @@ vector<string> ChatManager::UseChat(int chatID, string chatName, vector<string> 
                 return {"RETURN"};
             break;
             case 1:
-                cin.ignore();
-                getline(cin, message);
-                return {"GETMSGS" , message};
+                return {"GETMSGS"};
             break;
             case 2:
-                return {"SENDMSG"};
+                cin.ignore();
+                getline(cin, message);
+                return {"SENDMSG", message};
             break;
             case 3:
                 /*cout << "===================================================" << endl;
