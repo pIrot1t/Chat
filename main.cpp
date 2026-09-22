@@ -124,7 +124,7 @@ int main()
                                     vector<string> messages;
                                     int chatID = stoi(command[1]);
 
-                                    client.SendMessage(mpsen({"GETMSG", command[1]}).c_str());
+                                    client.SendMessage(mpsen({"GETMSGS", command[1]}).c_str());
                                     while (true)
                                     {
                                         result = mprec(client.GetMessage());
