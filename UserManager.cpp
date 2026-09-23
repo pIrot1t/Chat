@@ -122,6 +122,7 @@ void UserManager::delContact(string contact)
 
 vector<string> UserManager::EnterData(string type)
 {
+    system("clear");
     cout << "==================================================" << endl << endl;
     if (type == "REGISTER")
     {

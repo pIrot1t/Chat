@@ -27,6 +27,7 @@ int main()
 
     while(true)
     {
+        system("clear");
         cout << "==================================================" << endl << endl;
         if (!status)
         {
@@ -130,7 +131,15 @@ int main()
                                 while (true)
                                 {
                                     vector<string> messages;
+                                    vector<string> users;
+                                    string chatname = "unknown";
                                     int chatID = stoi(command[1]);
+
+                                    client.SendMessage(mpsen({"GETCHATNAME", command[1]}).c_str());
+
+                                    result = mprec(client.GetMessage());
+
+                                    chatname = result[0];
 
                                     client.SendMessage(mpsen({"GETMSGS", command[1]}).c_str());
                                     while (true)
@@ -144,7 +153,18 @@ int main()
                                         messages.push_back(result[0]);
                                     }
 
-                                    vector<string> command = chatManager.UseChat(chatID, "Chat", messages);
+                                    client.SendMessage(mpsen({"GETUSERSCHAT", command[1]}).c_str());
+                                    while (true)
+                                    {
+                                        result = mprec(client.GetMessage());
+                                        if (result[0] == "ENDLIST")
+                                        {
+                                            result.clear();
+                                            break;
+                                        }
+                                    }
+
+                                    vector<string> command = chatManager.UseChat(chatID, chatname, users, messages);
                                     if (command[0] == "RETURN")
                                     {
                                         break;
@@ -161,6 +181,7 @@ int main()
                 case 2:
                     while (true)
                     {
+                        system("clear");
                         cout << "==================================================" << endl << endl;
                         cout << "          ID:       " << userManager.getID() << endl;
                         cout << "          Name:     " << userManager.getName() << endl;

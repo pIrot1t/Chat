@@ -7,6 +7,7 @@ vector<string> ChatManager::ChatsMenu(vector<string> chats)
 {
     while (true)
     {
+        system("clear");
         int com;
         cout << "===================================================" << endl << endl;
         for (string chat : chats)
@@ -25,6 +26,7 @@ vector<string> ChatManager::ChatsMenu(vector<string> chats)
             break;
             case 1:
                 {
+                    cout << "Enter chat name: ";
                     string chatname;
                     cin.ignore();
                     getline(cin, chatname);
@@ -32,6 +34,7 @@ vector<string> ChatManager::ChatsMenu(vector<string> chats)
                 }
             break;
             case 2:
+                cout << "Enter chat ID: ";
                 cin >> com;
                 return {"OPENCHAT", to_string(com)};
             break;
@@ -39,10 +42,11 @@ vector<string> ChatManager::ChatsMenu(vector<string> chats)
     }
 }
 
-vector<string> ChatManager::UseChat(int chatID, string chatName, vector<string> messages)
+vector<string> ChatManager::UseChat(int chatID, string chatName, vector<string> users, vector<string> messages)
 {
     while (true)
     {
+        system("clear");
         int com;
         string message;
         cout << "===================================================" << endl;
@@ -71,31 +75,35 @@ vector<string> ChatManager::UseChat(int chatID, string chatName, vector<string> 
                 return {"SENDMSG", message};
             break;
             case 3:
-                /*cout << "===================================================" << endl;
-                cout << "    " << chatID << "        " << chatName << endl;
-                cout << "===================================================" << endl << endl;
-                for (string user : users)
+                while (true)
                 {
-                    cout << user << endl;
+                    cout << "===================================================" << endl;
+                    cout << "    " << chatID << "        " << chatName << endl;
+                    cout << "===================================================" << endl << endl;
+                    for (string user : users)
+                    {
+                        cout << user << endl;
+                    }
+                    cout << endl << "======================================================" << endl;
+                    cout << "    0 > return | 1 > leave chat | 2 > add user" << endl;
+                    cout << "===================================================" << endl << endl;
+                    cout << "Enter num(0-2): ";
+                    cin >> com;
+                    switch (com)
+                    {
+                        case 0:
+                        break;
+                        case 1:
+                            return {"LEAVECHAT"};
+                        break;
+                        case 2:
+                            cout << "Enter user ID: ";
+                            cin.ignore();
+                            getline(cin, message);
+                            return {"ADDUSERCHAT", message};
+                        break;
+                    }
                 }
-                cout << endl << "======================================================" << endl;
-                cout << "    0 > return | 1 > leave chat | 2 > add user" << endl;
-                cout << "===================================================" << endl << endl;
-                cout << "Enter num(0-2): ";
-                cin >> com;
-                switch (com)
-                {
-                    case 0:
-                    break;
-                    case 1:
-                        return {"LEAVECHAT"};
-                    break;
-                    case 2:
-                        cin.ignore();
-                        getline(cin, message);
-                        return {"ADDUSERCHAT", message};
-                    break;
-                }*/
             break;
         }
     }
