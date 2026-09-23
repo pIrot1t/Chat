@@ -56,7 +56,7 @@ vector<string> ChatManager::UseChat(int chatID, string chatName, vector<string> 
         {
             cout << _message << endl;
         }
-        cout << endl << "======================================================" << endl;
+        cout << endl << "====================================================" << endl;
         cout << "0 > return | 1 > update messages | 2 > send message | 3 > chat menu" << endl;
         cout << "===================================================" << endl << endl;
         cout << "Enter num(0-3): ";

@@ -174,6 +174,11 @@ int main()
                                     {
                                         client.SendMessage(mpsen({command[0], to_string(chatID), to_string(userManager.getID()), command[1]}).c_str());
                                     }
+                                    else if (command[0] == "ADDUSERCHAT")
+                                    {
+                                        client.SendMessage(mpsen({command[0], to_string(chatID), command[1]}).c_str());
+                                        result = mprec(client.GetMessage());
+                                    }
                                 }
                             }
                         }
@@ -188,7 +193,7 @@ int main()
                         cout << "          Name:     " << userManager.getName() << endl;
                         cout << "          Password: " << userManager.getPassword() << endl << endl;
                         cout << "==================================================" << endl;
-                        cout << "0 > return | 1 > change name | 2 > change password" << endl;
+                        cout << "0 > return" << endl;
                         cout << "==================================================" << endl << endl;
                         cin >> com;
                         if (com == 0)
