@@ -139,7 +139,7 @@ int main()
 
                                     result = mprec(client.GetMessage());
 
-                                    chatname = result[0];
+                                    chatname = result[1];
 
                                     client.SendMessage(mpsen({"GETMSGS", command[1]}).c_str());
                                     while (true)
@@ -162,6 +162,7 @@ int main()
                                             result.clear();
                                             break;
                                         }
+                                        users.push_back(result[0]);
                                     }
 
                                     vector<string> command = chatManager.UseChat(chatID, chatname, users, messages);

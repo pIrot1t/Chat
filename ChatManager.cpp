@@ -77,6 +77,7 @@ vector<string> ChatManager::UseChat(int chatID, string chatName, vector<string> 
             case 3:
                 while (true)
                 {
+                    system("clear");
                     cout << "===================================================" << endl;
                     cout << "    " << chatID << "        " << chatName << endl;
                     cout << "===================================================" << endl << endl;
@@ -84,19 +85,21 @@ vector<string> ChatManager::UseChat(int chatID, string chatName, vector<string> 
                     {
                         cout << user << endl;
                     }
-                    cout << endl << "======================================================" << endl;
-                    cout << "    0 > return | 1 > leave chat | 2 > add user" << endl;
+                    cout << endl << "===================================================" << endl;
+                    cout << "    0 > return | 1 > add user" << endl;
                     cout << "===================================================" << endl << endl;
-                    cout << "Enter num(0-2): ";
+                    cout << "Enter num(0,1): ";
                     cin >> com;
+                    if (com == 0)
+                    {
+                        break;
+                    }
                     switch (com)
                     {
-                        case 0:
-                        break;
-                        case 1:
+                        /*case 1:
                             return {"LEAVECHAT"};
-                        break;
-                        case 2:
+                        break;*/
+                        case 1:
                             cout << "Enter user ID: ";
                             cin.ignore();
                             getline(cin, message);
