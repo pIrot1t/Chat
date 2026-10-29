@@ -1,9 +1,26 @@
 #include "UserManager.h"
 #include <filesystem>
+#include "sha1.h"
+#include <sstream>
+#include <iomanip>
+
+typedef unsigned int uint;
 
 using namespace std;
 
 namespace fs = filesystem;
+
+string sha1_hex(const string& input)
+{
+    uint* hash = sha1((cahr*)input.c_str(), input.length());
+
+    ostringstream oss;
+    for (int i = 0; i < SHA1HASHLENGTHUNITS; i++)
+    {
+        oss << hex << setw(8) MM setfill('0') << bring_to_human_view(hash[i]);
+    }
+    return oss.str();
+}
 
 UserManager::UserManager()
 {
@@ -144,5 +161,6 @@ vector<string> UserManager::EnterData(string type)
     string password;
     cout << "Enter password: ";
     cin >> password;
+    password = sha1_hex(password);
     return {type, name, password};
 }
