@@ -1,69 +1,128 @@
-# Prerequisites
-*.d
-
-# Compiled Object files
+# Compiled object files
 *.slo
 *.lo
 *.o
 *.obj
+*.ko
+*.elf
 
-# Precompiled Headers
+# Precompiled headers
 *.gch
 *.pch
 
-# Linker files
-*.ilk
-
-# Debugger Files
-*.pdb
-
-# Compiled Dynamic libraries
+# Compiled libraries
 *.so
+*.so.*
 *.dylib
 *.dll
-*.so.*
-
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
 *.a
 *.lib
+*.lai
+*.la
 
 # Executables
 *.exe
 *.out
 *.app
+Chat
+Chat.exe
+
+# Linker files
+*.ilk
+*.map
+*.exp
+*.pdb
+*.ipdb
+*.pgc
+*.pgd
 
 # Build directories
 build/
 Build/
-build-*/
+BUILD/
+builds/
+bin/
+Bin/
+obj/
+Obj/
+debug/
+Debug/
+release/
+Release/
+x64/
+x86/
+Win32/
+ARM/
+ARM64/
 
-# CMake generated files
-CMakeFiles/
+# CMake
 CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
 cmake_install.cmake
-Makefile
 install_manifest.txt
 compile_commands.json
+CTestTestfile.cmake
+DartConfiguration.tcl
+CPackConfig.cmake
+CPackSourceConfig.cmake
+
+# Visual Studio
+.vs/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+*.user
+*.suo
+*.sln.docstates
+*.VC.db
+*.VC.opendb
+*.log
+*.tlog
+*.idb
+*.res
+*.rc
+*.rc2
+
+# CLion / JetBrains
+.idea/
+cmake-build-debug/
+cmake-build-release/
+
+# Qt Creator
+*.pro.user
+*.qbs.user
+*.autosave
+
+# Local configuration and secrets
+.env
+.env.*
+*.env
+config.ini
+config.local.ini
+secrets.txt
+
+# MySQL dumps and logs
+*.sql
+*.sql.gz
+*.sql.zip
+*.log
+*.err
+
+# OS files
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
 
 # Temporary files
 *.tmp
-*.log
-*.bak
+*.temp
 *.swp
-
-# vcpkg
-vcpkg_installed/
-
-# debug information files
-*.dwo
-
-# test output & cache
-Testing/
-.cache/
+*~
