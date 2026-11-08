@@ -12,12 +12,12 @@ namespace fs = filesystem;
 
 string sha1_hex(const string& input)
 {
-    uint* hash = sha1((cahr*)input.c_str(), input.length());
+    uint* hash = sha1((char*)input.c_str(), input.length());
 
     ostringstream oss;
-    for (int i = 0; i < SHA1HASHLENGTHUNITS; i++)
+    for (int i = 0; i < SHA1HASHLENGTHUINTS; i++)
     {
-        oss << hex << setw(8) MM setfill('0') << bring_to_human_view(hash[i]);
+        oss << hex << setw(8) << setfill('0') << bring_to_human_view(hash[i]);
     }
     return oss.str();
 }

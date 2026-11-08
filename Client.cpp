@@ -4,23 +4,16 @@ using namespace std;
 
 bool Client::StartClient()
 {
-    socket_file_descriptor = socket(AF_INET, SOCK_STREAM, 0);
-
-    if (socket_file_descriptor == -1)
+    if (!StartNetwork())
     {
-        cout << "Creation of socket failed" << endl;
+        cout << "Error: network initialization failed!" << endl;
         return false;
     }
 
-    serveraddress.sin_addr.s_addr = inet_addr("127.0.0.1");
-    serveraddress.sin_port = htons(PORT);
-    serveraddress.sin_family = AF_INET;
-
-    connection = connect(socket_file_descriptor, (struct sockaddr *)&serveraddress, sizeof(serveraddress));
-
-    if (connection == -1)
+    if (!ConnectToServer("127.0.0.1", PORT, socket_file_descriptor))
     {
-        cout << "Connection with the server failed" << endl;
+        cout << "Connection with server failed!" << endl;
+        StopNetwork();
         return false;
     }
 
@@ -29,28 +22,21 @@ bool Client::StartClient()
 
 void Client::StopClient()
 {
-    cout << "Client has been stopped" << endl;
-    close(socket_file_descriptor);
+    CloseConnection(socket_file_descriptor);
+    StopNetwork();
 }
 
 string Client::GetMessage()
 {
-    bzero(message, sizeof(message));
-
-    read(socket_file_descriptor, message, sizeof(message));
+    ReceiveMessageFromServer(socket_file_descriptor, message);
 
     return message;
 }
 
-void Client::SendMessage(const char *_message)
+void Client::SendMessage(const string& message)
 {
-    bzero(message, sizeof(message));
-    strncpy(message, _message, MESSAGE_LENGTH - 1);
+    //bzero(message, sizeof(message));
+    //strncpy(message, _message, MESSAGE_LENGTH - 1);
 
-    ssize_t bytes = write(socket_file_descriptor, message, sizeof(message));
-
-    if (bytes >= 0)
-    {
-    cout << "Data successfully sent to the server" << endl;
-    }
+    SendMessageToServer(socket_file_descriptor, message);
 }

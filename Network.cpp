@@ -13,9 +13,11 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <unistd.h>
+#include <cerrno>
 
 #endif
 
+#include <iostream>
 #include <cstring>
 
 using namespace std;
@@ -74,6 +76,7 @@ bool ConnectToServer(const string& ip, int port, int& socketDescriptor)
 #ifdef _WIN32
 		closesocket(sock);
 #else
+        cout << "Connection failed. Error: " << strerror(errno) << endl;
 		close(sock);
 #endif
 		return false;
