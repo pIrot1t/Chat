@@ -10,7 +10,7 @@ bool Client::StartClient()
         return false;
     }
 
-    if (!ConnectToServer("127.0.0.1", PORT, socket_file_descriptor))
+    if (!ConnectToServer("192.168.198.128", PORT, socket_file_descriptor))
     {
         cout << "Connection with server failed!" << endl;
         StopNetwork();

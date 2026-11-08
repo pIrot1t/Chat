@@ -2,5 +2,5 @@ SRC = main.cpp UserManager.cpp ChatManager.cpp MessageManager.cpp sha1.cpp Clien
 TARGET = Chat
 
 Chat: $(SRC)
-	g++ $(SRC) -o $(TARGET) -std=c++17
+	g++ -static -static-libgcc -static-libstdc++ $(SRC) -o $(TARGET) -std=c++17 -lws2_32
 	

@@ -74,6 +74,7 @@ bool ConnectToServer(const string& ip, int port, int& socketDescriptor)
 	if (connect(sock, (sockaddr*)&serverAddress, sizeof(serverAddress)) < 0)
 	{
 #ifdef _WIN32
+		cout << "Connection failed. Error: " << WSAGetLastError() << endl;
 		closesocket(sock);
 #else
         cout << "Connection failed. Error: " << strerror(errno) << endl;
