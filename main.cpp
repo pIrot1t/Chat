@@ -27,7 +27,11 @@ int main()
 
     while(true)
     {
+#ifdef _WIN32
+        system("cls");
+#elif
         system("clear");
+#endif
         cout << "==================================================" << endl << endl;
         if (!status)
         {
@@ -98,25 +102,20 @@ int main()
                         while (true)
                         {
                             client.SendMessage(mpsen({"GETCHATS", to_string(userManager.getID())}).c_str());
-                            vector<string> chats;
                             while (true)
                             {
                                 result = mprec(client.GetMessage());
-                                if (result[0] == "ENDLIST")
+                                if (result[0] == "ENDCHATS")
                                 {
                                     result.clear();
                                     break;
                                 }
-                                if (result.size() >= 2)
+                                if (result[0] == "CHAT" && result.size() >= 3)
                                 {
-                                    chats.push_back(result[0] + "    " + result[1]);
-                                }
-                                else
-                                {
-                                    chats.push_back(result[0] + "    (unnamed)");
+                                    chatManager.addChat(stoi(result[1]), result[2]);
                                 }
                             }
-                            vector<string> command = chatManager.ChatsMenu(chats);
+                            vector<string> command = chatManager.ChatsMenu();
                             if (command[0] == "RETURN")
                             {
                                 break;
@@ -128,56 +127,122 @@ int main()
                             }
                             else if (command[0] == "OPENCHAT")
                             {
+                                if (command.size() < 2)
+                                {
+                                    cout << "Error: invalid OPENCHAT command" << endl;
+                                    continue;
+                                }
+
+                                int chatID = 0;
+
+                                try
+                                {
+                                    chatID = stoi(command[1]);
+                                }
+                                catch (const exception&)
+                                {
+                                    cout << "Error: invalid chat ID" << endl;
+                                    continue;
+                                }
+
                                 while (true)
                                 {
                                     vector<string> messages;
                                     vector<string> users;
-                                    string chatname = "unknown";
-                                    int chatID = stoi(command[1]);
+                                    //string chatname = "unknown";
 
-                                    client.SendMessage(mpsen({"GETCHATNAME", command[1]}).c_str());
+                                    //client.SendMessage(mpsen({ "GETCHATNAME", to_string(chatID) }).c_str());
 
-                                    result = mprec(client.GetMessage());
+                                    //result = mprec(client.GetMessage());
 
-                                    chatname = result[1];
+                                    //string response = client.GetMessage();
 
-                                    client.SendMessage(mpsen({"GETMSGS", command[1]}).c_str());
+                                    //cout << "DEBUG GETCHATNAME response: [" << response << "]" << endl;
+
+                                    //result = mprec(response);
+
+                                    //cout << "DEBUG parts: " << result.size() << endl;
+
+                                    //if (result.size() > 1)
+                                    //
+                                    //    chatname = result[1];
+                                    //}
+                                    //else
+                                    //{
+                                    //    cout << "Error: failed to get chat name" << endl;
+                                    //}
+
+                                    client.SendMessage(mpsen({ "GETMSGS", to_string(chatID) }).c_str());
+
                                     while (true)
                                     {
                                         result = mprec(client.GetMessage());
+
+                                        if (result.empty())
+                                        {
+                                            break;
+                                        }
+
                                         if (result[0] == "ENDMSGS")
                                         {
                                             result.clear();
                                             break;
                                         }
+
                                         messages.push_back(result[0]);
                                     }
 
-                                    client.SendMessage(mpsen({"GETUSERSCHAT", command[1]}).c_str());
+                                    client.SendMessage(mpsen({ "GETUSERSCHAT", to_string(chatID) }).c_str());
+
                                     while (true)
                                     {
                                         result = mprec(client.GetMessage());
+
+                                        if (result.empty())
+                                        {
+                                            break;
+                                        }
+
                                         if (result[0] == "ENDLIST")
                                         {
                                             result.clear();
                                             break;
                                         }
+
                                         users.push_back(result[0]);
                                     }
 
-                                    vector<string> command = chatManager.UseChat(chatID, chatname, users, messages);
-                                    if (command[0] == "RETURN")
+                                    vector<string> chatCommand = chatManager.UseChat(chatID, users, messages);
+
+                                    if (chatCommand.empty())
+                                    {
+                                        continue;
+                                    }
+
+                                    if (chatCommand[0] == "RETURN")
                                     {
                                         break;
                                     }
-                                    else if (command[0] == "SENDMSG")
+                                    else if (chatCommand[0] == "SENDMSG")
                                     {
-                                        client.SendMessage(mpsen({command[0], to_string(chatID), to_string(userManager.getID()), command[1]}).c_str());
+                                        if (chatCommand.size() > 1)
+                                        {
+                                            client.SendMessage(mpsen({ chatCommand[0], to_string(chatID), to_string(userManager.getID()), chatCommand[1] }).c_str());
+                                        }
                                     }
-                                    else if (command[0] == "ADDUSERCHAT")
+                                    else if (chatCommand[0] == "ADDUSERCHAT")
                                     {
-                                        client.SendMessage(mpsen({command[0], to_string(chatID), command[1]}).c_str());
-                                        result = mprec(client.GetMessage());
+                                        if (chatCommand.size() > 1)
+                                        {
+                                            client.SendMessage(mpsen({ chatCommand[0], to_string(chatID), chatCommand[1] }).c_str());
+
+                                            result = mprec(client.GetMessage());
+
+                                            if (!result.empty() && result[0] == "ERROR" && result.size() > 1)
+                                            {
+                                                cout << result[1] << endl;
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -187,7 +252,11 @@ int main()
                 case 2:
                     while (true)
                     {
+#ifdef _WIN32
+                        system("cls");
+#elif
                         system("clear");
+#endif
                         cout << "==================================================" << endl << endl;
                         cout << "          ID:       " << userManager.getID() << endl;
                         cout << "          Name:     " << userManager.getName() << endl;

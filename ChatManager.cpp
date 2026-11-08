@@ -1,24 +1,40 @@
 #include "ChatManager.h"
-#include <string>
 
 using namespace std;
 
-vector<string> ChatManager::ChatsMenu(vector<string> chats)
+void ChatManager::addChat(int chatID, string chatName)
+{
+    chats.insert({ chatID, chatName });
+}
+
+vector<string> ChatManager::ChatsMenu()
 {
     while (true)
     {
+#ifdef _WIN32
+        system("cls");
+#elif
         system("clear");
+#endif
         int com;
         cout << "===================================================" << endl << endl;
-        for (string chat : chats)
+        for (map<int, string>::iterator it = chats.begin(); it != chats.end(); it++)
         {
-            cout << chat << endl;
+            cout << it->first << " : " << it->second << endl;
         }
         cout << endl << "======================================================" << endl;
         cout << "    0 > return | 1 > create chat | 2 > open chat" << endl;
         cout << "===================================================" << endl << endl;
         cout << "Enter num(0-2): ";
         cin >> com;
+
+        if (cin.fail())
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            continue;
+        }
+
         switch (com)
         {
             case 0:
@@ -26,31 +42,45 @@ vector<string> ChatManager::ChatsMenu(vector<string> chats)
             break;
             case 1:
                 {
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
                     cout << "Enter chat name: ";
-                    string chatname;
+                    string chat_name;
                     cin.ignore();
-                    getline(cin, chatname);
-                    return {"CREATECHAT", chatname};
+                    getline(cin, chat_name);
+                    return {"CREATECHAT", chat_name};
                 }
             break;
             case 2:
                 cout << "Enter chat ID: ";
                 cin >> com;
+
+                if (cin.fail())
+                {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    continue;
+                }
+
                 return {"OPENCHAT", to_string(com)};
             break;
         }
     }
 }
 
-vector<string> ChatManager::UseChat(int chatID, string chatName, vector<string> users, vector<string> messages)
+vector<string> ChatManager::UseChat(int chatID, vector<string> users, vector<string> messages)
 {
     while (true)
     {
+#ifdef _WIN32
+        system("cls");
+#elif
         system("clear");
+#endif
         int com;
         string message;
         cout << "===================================================" << endl;
-        cout << "    " << chatID << "        " << chatName << endl;
+        cout << "    " << chatID << "        " << chats[chatID] << endl;
         cout << "===================================================" << endl << endl;
         for (string _message : messages)
         {
@@ -61,6 +91,14 @@ vector<string> ChatManager::UseChat(int chatID, string chatName, vector<string> 
         cout << "===================================================" << endl << endl;
         cout << "Enter num(0-3): ";
         cin >> com;
+
+        if (cin.fail())
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            continue;
+        }
+
         switch (com)
         {
             case 0:
@@ -70,16 +108,22 @@ vector<string> ChatManager::UseChat(int chatID, string chatName, vector<string> 
                 return {"GETMSGS"};
             break;
             case 2:
-                cin.ignore();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+                cout << "Enter message: ";
                 getline(cin, message);
                 return {"SENDMSG", message};
             break;
             case 3:
                 while (true)
                 {
+#ifdef _WIN32
+                    system("cls");
+#elif
                     system("clear");
+#endif
                     cout << "===================================================" << endl;
-                    cout << "    " << chatID << "        " << chatName << endl;
+                    cout << "    " << chatID << "        " << chats[chatID] << endl;
                     cout << "===================================================" << endl << endl;
                     for (string user : users)
                     {
@@ -90,6 +134,14 @@ vector<string> ChatManager::UseChat(int chatID, string chatName, vector<string> 
                     cout << "===================================================" << endl << endl;
                     cout << "Enter num(0,1): ";
                     cin >> com;
+
+                    if (cin.fail())
+                    {
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                        continue;
+                    }
+
                     if (com == 0)
                     {
                         break;
@@ -100,6 +152,8 @@ vector<string> ChatManager::UseChat(int chatID, string chatName, vector<string> 
                             return {"LEAVECHAT"};
                         break;*/
                         case 1:
+                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
                             cout << "Enter user ID: ";
                             cin.ignore();
                             getline(cin, message);

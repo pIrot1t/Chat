@@ -35,8 +35,5 @@ string Client::GetMessage()
 
 void Client::SendMessage(const string& message)
 {
-    //bzero(message, sizeof(message));
-    //strncpy(message, _message, MESSAGE_LENGTH - 1);
-
     SendMessageToServer(socket_file_descriptor, message);
 }

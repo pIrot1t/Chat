@@ -139,13 +139,17 @@ void UserManager::delContact(string contact)
 
 vector<string> UserManager::EnterData(string type)
 {
+#ifdef _WIN32
+    system("cls");
+#elif
     system("clear");
+#endif
     cout << "==================================================" << endl << endl;
     if (type == "REGISTER")
     {
         cout << "                   Registration" << endl << endl;
     }
-    else if (type == "AUTHORIZ")
+    else if (type == "AUTHORIZE")
     {
         cout << "                   Authorization" << endl << endl;
     }
