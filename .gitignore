@@ -5,6 +5,7 @@
 *.obj
 *.ko
 *.elf
+Makefile
 
 # Precompiled headers
 *.gch
