@@ -1,11 +1,15 @@
+#if defined(_WIN32) && !defined(_WIN32_WINNT)
+#define _WIN32_WINNT 0x0600
+#endif
+
 #include "Network.h"
 
 #ifdef _WIN32
 
 #include <winsock2.h>
-#include <WS2tcpip.h>
+#include <ws2tcpip.h>
 
-#pragma comment(lib, "ws_32.lib")
+#pragma comment(lib, "ws2_32.lib")
 
 #else
 
@@ -121,16 +125,15 @@ bool ReceiveMessageFromServer(int socketDescriptor, string& message)
 	int sock = socketDescriptor;
 #endif
 
-	char buffer[1025];
-	int received = recv(sock, buffer, sizeof(buffer) - 1, 0);
+	char buffer[1024];
+	int received = recv(sock, buffer, sizeof(buffer), 0);
 
 	if (received <= 0)
 	{
 		return false;
 	}
 
-	buffer[received] = '\0';
-	message = buffer;
+	message.assign(buffer, received);
 
 	return true;
 }

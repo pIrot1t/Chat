@@ -8,7 +8,7 @@
 
 using namespace std;
 
-int main()
+int main(int argc, char* argv[])
 {
     Client client;
 
@@ -20,7 +20,9 @@ int main()
     vector<string> result;
     bool status = false;
 
-    if (!client.StartClient())
+    string serverIP = argc > 1 ? argv[1] : DEFAULT_SERVER_IP;
+
+    if (!client.StartClient(serverIP))
     {
         return 1;
     }
@@ -29,7 +31,7 @@ int main()
     {
 #ifdef _WIN32
         system("cls");
-#elif
+#else
         system("clear");
 #endif
         cout << "==================================================" << endl << endl;
@@ -39,11 +41,11 @@ int main()
             cout << "                2 > Authorization" << endl;
             cout << "                0 > Exit" << endl << endl;
             cout << "==================================================" << endl << endl;
-            if (!result.empty())
+            if (result.size() >= 2)
             {
                 cout << result[0] << ": " << result[1] << endl << endl;
-                result.clear();
             }
+            result.clear();
             cout << "Enter num(0-2): ";
             cin >> com;
             switch (com)
@@ -62,7 +64,7 @@ int main()
                     vector<string> temp = userManager.EnterData("AUTHORIZE");
                     client.SendMessage(mpsen(temp).c_str());
                     result = mprec(client.GetMessage());
-                    if (result[0] == "SUCCESS")
+                    if (result.size() >= 3 && result[0] == "SUCCESS")
                     {
                         userManager.setID(stoi(result[2]));
                         userManager.setName(temp[1]);
@@ -83,11 +85,11 @@ int main()
             cout << "                3 > Leave account" << endl;
             cout << "                0 > Exit" << endl << endl;
             cout << "==================================================" << endl << endl;
-            if (!result.empty())
+            if (result.size() >= 2)
             {
                 cout << result[0] << ": " << result[1] << endl << endl;
-                result.clear();
             }
+            result.clear();
             cout << "Enter num(0-3): ";
             cin >> com;
             switch (com)
@@ -102,17 +104,24 @@ int main()
                         while (true)
                         {
                             client.SendMessage(mpsen({"GETCHATS", to_string(userManager.getID())}).c_str());
+                            chatManager.clearChats();
                             while (true)
                             {
                                 result = mprec(client.GetMessage());
-                                if (result[0] == "ENDCHATS")
+                                if (result.empty() || result[0] == "ENDLIST" || result[0] == "ERROR")
                                 {
                                     result.clear();
                                     break;
                                 }
-                                if (result[0] == "CHAT" && result.size() >= 3)
+                                if (result.size() >= 2)
                                 {
-                                    chatManager.addChat(stoi(result[1]), result[2]);
+                                    try
+                                    {
+                                        chatManager.addChat(stoi(result[0]), result[1]);
+                                    }
+                                    catch (const exception&)
+                                    {
+                                    }
                                 }
                             }
                             vector<string> command = chatManager.ChatsMenu();
@@ -228,6 +237,9 @@ int main()
                                         if (chatCommand.size() > 1)
                                         {
                                             client.SendMessage(mpsen({ chatCommand[0], to_string(chatID), to_string(userManager.getID()), chatCommand[1] }).c_str());
+
+                                            result = mprec(client.GetMessage());
+                                            result.clear();
                                         }
                                     }
                                     else if (chatCommand[0] == "ADDUSERCHAT")
@@ -254,7 +266,7 @@ int main()
                     {
 #ifdef _WIN32
                         system("cls");
-#elif
+#else
                         system("clear");
 #endif
                         cout << "==================================================" << endl << endl;

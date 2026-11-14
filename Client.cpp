@@ -2,7 +2,7 @@
 
 using namespace std;
 
-bool Client::StartClient()
+bool Client::StartClient(const string& ip)
 {
     if (!StartNetwork())
     {
@@ -10,7 +10,7 @@ bool Client::StartClient()
         return false;
     }
 
-    if (!ConnectToServer("192.168.198.128", PORT, socket_file_descriptor))
+    if (!ConnectToServer(ip, PORT, socket_file_descriptor))
     {
         cout << "Connection with server failed!" << endl;
         StopNetwork();
@@ -28,7 +28,30 @@ void Client::StopClient()
 
 string Client::GetMessage()
 {
-    ReceiveMessageFromServer(socket_file_descriptor, message);
+    size_t end;
+
+    while ((end = buffer.find('\n')) == string::npos)
+    {
+        string chunk;
+
+        if (!ReceiveMessageFromServer(socket_file_descriptor, chunk))
+        {
+            buffer.clear();
+            message.clear();
+            return message;
+        }
+
+        for (char c : chunk)
+        {
+            if (c != '\0')
+            {
+                buffer += c;
+            }
+        }
+    }
+
+    message = buffer.substr(0, end + 1);
+    buffer.erase(0, end + 1);
 
     return message;
 }

@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <string>
 #include <limits>
@@ -13,6 +14,8 @@ private:
 public:
 
     void addChat(int chatID, std::string chatName);
+
+    void clearChats();
 
     std::vector<std::string> ChatsMenu();
 

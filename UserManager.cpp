@@ -3,6 +3,7 @@
 #include "sha1.h"
 #include <sstream>
 #include <iomanip>
+#include <limits>
 
 typedef unsigned int uint;
 
@@ -141,7 +142,7 @@ vector<string> UserManager::EnterData(string type)
 {
 #ifdef _WIN32
     system("cls");
-#elif
+#else
     system("clear");
 #endif
     cout << "==================================================" << endl << endl;
@@ -160,7 +161,7 @@ vector<string> UserManager::EnterData(string type)
     cout << "==================================================" << endl << endl;
     string name;
     cout << "Enter name: ";
-    cin.ignore();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     getline(cin, name);
     string password;
     cout << "Enter password: ";

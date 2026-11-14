@@ -7,13 +7,18 @@ void ChatManager::addChat(int chatID, string chatName)
     chats.insert({ chatID, chatName });
 }
 
+void ChatManager::clearChats()
+{
+    chats.clear();
+}
+
 vector<string> ChatManager::ChatsMenu()
 {
     while (true)
     {
 #ifdef _WIN32
         system("cls");
-#elif
+#else
         system("clear");
 #endif
         int com;
@@ -46,7 +51,6 @@ vector<string> ChatManager::ChatsMenu()
 
                     cout << "Enter chat name: ";
                     string chat_name;
-                    cin.ignore();
                     getline(cin, chat_name);
                     return {"CREATECHAT", chat_name};
                 }
@@ -74,7 +78,7 @@ vector<string> ChatManager::UseChat(int chatID, vector<string> users, vector<str
     {
 #ifdef _WIN32
         system("cls");
-#elif
+#else
         system("clear");
 #endif
         int com;
@@ -119,7 +123,7 @@ vector<string> ChatManager::UseChat(int chatID, vector<string> users, vector<str
                 {
 #ifdef _WIN32
                     system("cls");
-#elif
+#else
                     system("clear");
 #endif
                     cout << "===================================================" << endl;
@@ -155,7 +159,6 @@ vector<string> ChatManager::UseChat(int chatID, vector<string> users, vector<str
                             cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
                             cout << "Enter user ID: ";
-                            cin.ignore();
                             getline(cin, message);
                             return {"ADDUSERCHAT", message};
                         break;
