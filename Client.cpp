@@ -47,6 +47,10 @@ string Client::GetMessage()
             {
                 buffer += c;
             }
+            else if (!buffer.empty() && buffer.back() != '\n')
+            {
+                buffer += '\n';
+            }
         }
     }
 
