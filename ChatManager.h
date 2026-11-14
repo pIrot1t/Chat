@@ -19,5 +19,5 @@ public:
 
     std::vector<std::string> ChatsMenu();
 
-    std::vector<std::string> UseChat(int chatID, std::vector<std::string> users, std::vector<std::string> messages);
+    std::vector<std::string> UseChat(int chatID, std::vector<std::string> users, std::vector<std::string> messages, std::string status = "");
 };

@@ -154,6 +154,8 @@ int main(int argc, char* argv[])
                                     continue;
                                 }
 
+                                string chatStatus;
+
                                 while (true)
                                 {
                                     vector<string> messages;
@@ -221,7 +223,9 @@ int main(int argc, char* argv[])
                                         users.push_back(result[0]);
                                     }
 
-                                    vector<string> chatCommand = chatManager.UseChat(chatID, users, messages);
+                                    vector<string> chatCommand = chatManager.UseChat(chatID, users, messages, chatStatus);
+
+                                    chatStatus.clear();
 
                                     if (chatCommand.empty())
                                     {
@@ -239,6 +243,12 @@ int main(int argc, char* argv[])
                                             client.SendMessage(mpsen({ chatCommand[0], to_string(chatID), to_string(userManager.getID()), chatCommand[1] }).c_str());
 
                                             result = mprec(client.GetMessage());
+
+                                            if (result.size() > 1 && result[0] == "ERROR")
+                                            {
+                                                chatStatus = "ERROR: " + result[1];
+                                            }
+
                                             result.clear();
                                         }
                                     }
@@ -250,10 +260,12 @@ int main(int argc, char* argv[])
 
                                             result = mprec(client.GetMessage());
 
-                                            if (!result.empty() && result[0] == "ERROR" && result.size() > 1)
+                                            if (result.size() > 1)
                                             {
-                                                cout << result[1] << endl;
+                                                chatStatus = result[0] + ": " + result[1];
                                             }
+
+                                            result.clear();
                                         }
                                     }
                                 }

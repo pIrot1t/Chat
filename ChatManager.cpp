@@ -72,7 +72,7 @@ vector<string> ChatManager::ChatsMenu()
     }
 }
 
-vector<string> ChatManager::UseChat(int chatID, vector<string> users, vector<string> messages)
+vector<string> ChatManager::UseChat(int chatID, vector<string> users, vector<string> messages, string status)
 {
     while (true)
     {
@@ -91,6 +91,11 @@ vector<string> ChatManager::UseChat(int chatID, vector<string> users, vector<str
             cout << _message << endl;
         }
         cout << endl << "====================================================" << endl;
+        if (!status.empty())
+        {
+            cout << status << endl;
+            status.clear();
+        }
         cout << "0 > return | 1 > update messages | 2 > send message | 3 > chat menu" << endl;
         cout << "===================================================" << endl << endl;
         cout << "Enter num(0-3): ";
